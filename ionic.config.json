@@ -1,0 +1,8 @@
+{
+  "name": "Arxapp_v1",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}
