@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar color="primary">
+       <ion-buttons slot="start">
+         <ion-menu-button></ion-menu-button>
+       </ion-buttons> 
+       <div class="plusClass" slot="end">
+        <ion-icon name="menu" expand="icon-only" color="light" (click)="presentActionSheet()"> </ion-icon>
+      </div>
+      <ion-title>
+        Invitado
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-slides pager="true">
+      
+      <ion-slide>
+          <ion-button (click)="aparicionImagen()">Hola</ion-button>
+          <img [@myVisility] = 'visibleState' src="./../../../assets/images/guardia.png" class="img-padding img-opacity" alt="">
+      </ion-slide>
+
+      <ion-slide>
+        <h1>Slide 2</h1>
+        
+      </ion-slide>
+
+      <ion-slide>
+        <h1>Slide 3</h1>
+        
+      </ion-slide>
+    </ion-slides>
+</ion-content>
+
+ 

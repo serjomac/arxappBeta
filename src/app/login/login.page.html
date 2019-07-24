@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <img class="logoImg" src="assets/images/logoArxapp.png" alt="">
+
+<ion-item>
+    <ion-label position="floating">Correo</ion-label>
+    <ion-input type="text" name="email" [(ngModel)] = "email"></ion-input>
+
+</ion-item>
+
+<ion-item>
+    <ion-label position="floating">Clave</ion-label>
+    <ion-input type="password" [(ngModel)] = "password" name="password"></ion-input>
+
+</ion-item>
+<br>
+<ion-button (click) = "onSubmitLogin()" expand="block">Ingresar</ion-button>
+<ion-button routerLink="../register" expand="block">Registrarse</ion-button>
+
+
+
+</ion-content>

@@ -1,0 +1,40 @@
+
+
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons>
+        <ion-button>
+            <ion-back-button defaultHref="/menu/home"></ion-back-button>
+        </ion-button>
+      </ion-buttons>
+    <ion-title>Lista de Invitados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card  *ngFor= "let invitado of arrayInvitados">
+    <ion-card-content>
+      <ion-card-subtitle>{{invitado.name}}</ion-card-subtitle>
+      <ion-label>{{invitado.rol}}</ion-label>
+      <ion-button color="ligth" float-right>
+          <ion-icon color="danger" name="close"></ion-icon>   
+        </ion-button>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addInvitado(arrayInvitados)">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

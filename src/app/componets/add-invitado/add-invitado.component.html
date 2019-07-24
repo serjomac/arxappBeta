@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary-contrast">
+     <ion-buttons slot="start">
+       <ion-menu-button></ion-menu-button>
+     </ion-buttons>
+     
+     <div class="plusClass" slot="end">
+      <ion-icon name="menu" expand="icon-only" color="#fff" (click)="presentActionSheet()"> </ion-icon>
+    </div>
+     
+    <ion-title color="primary">
+      Agregar un invitado
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+
+<ion-card color="primary-contrast">
+      <ion-card-content color="primary-contrast">
+        <label>Ingresar un invitado a la lista</label>
+            <ion-input [(ngModel)]= "visitanteIngresado" type="text" placeholder="Ingresar correo invitado" ></ion-input>
+            <div class="displayButton">
+                <ion-button color="primary-contrast" (click)="addInvitado()"> Aceptar </ion-button>
+                <ion-button color="primary-contrast" (click)="closeChat()"> Cancelar </ion-button>
+            </div>
+      </ion-card-content>
+</ion-card>
+</ion-content>

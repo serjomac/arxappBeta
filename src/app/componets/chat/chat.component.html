@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar class="header">
+    <ion-buttons slot="start">
+      <ion-icon name= "close" color="light" (click)="closeChat()"></ion-icon>
+    </ion-buttons>
+    <ion-title color="light">Chat vicrieel</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon name="contact" slot="icon-only" color="light"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  #content  padding class="contentBg"  id="chat-parent">
+  <div  class="chat" *ngFor="let chat of chatRef | async">
+        <div class="me" *ngIf= "uid == chat.id_user">
+          {{chat.constent}}
+        </div>
+          <div class="you" *ngIf= "uid != chat.id_user" >
+            <span class="name"[ngStyle]="{'color': colorNombre}">
+              {{chat.name}}
+            </span>
+
+            <span> <br>
+              {{chat.constent}}
+            </span>
+        </div>
+        <div class="contentEnd">
+          <div></div>
+        </div>
+  </div>
+
+</ion-content>
+
+<ion-footer class="footer">
+  <ion-toolbar class="footerSections">
+    <div class="containerFooter">
+      <div class="inputConatiner">
+        <ion-input [(ngModel)]= "msg" class="placeholdertext inputMessage inputBg" type="text" placeholder="Escribir un mensaje" autofocus="true" padding-start></ion-input>
+      </div>
+      <div class="send-button-parent">
+        <ion-button  class="sendBtn" color="primary" (click)="sendMensaje()">
+          <ion-icon class="sendBtn-icon" name="send" color="light"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>
