@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { ListaInvitadosPage } from './lista-invitados/lista-invitados.page';
+import { ListaGuardiaPage } from './lista-guardia/lista-guardia.page';
 import { AuthGuard } from './guards/auth.guard';
 import { NoLoginGuard } from './guards/no-login.guard';
 import { from } from 'rxjs';

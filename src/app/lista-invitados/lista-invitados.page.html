@@ -13,7 +13,7 @@
 
 <ion-content>
 
-  <ion-card  *ngFor= "let invitado of arrayInvitados">
+  <ion-card *ngFor= "let invitado of arrayInvitados">
     <ion-card-content>
       <ion-card-subtitle>{{invitado.name}}</ion-card-subtitle>
       <ion-label>{{invitado.username}}</ion-label>
@@ -24,7 +24,7 @@
   </ion-card>
   
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addInvitado(arrayInvitados)">
+    <ion-fab-button (click)="addInvitado()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
