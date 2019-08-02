@@ -51,7 +51,7 @@ export class ListaGuardiaPage implements OnInit {
       var dataTmp = [];
 
       //this.data = dataTmp;
-      //console.log("veamos que tiene data: ", this.listaDeInvitados[1]);
+      console.log("veamos que tiene data: ", this.listaDelGuardia[0]);
       event.target.complete();
 
       if (this.data.length > 1000) {
@@ -69,32 +69,43 @@ export class ListaGuardiaPage implements OnInit {
   }
 
   ngOnInit() {
-    this.arrayInvitados = [];
-    this.listaDelGuardia = [];
+    
     this.data = this.dataBase.collection('invitados').snapshotChanges().pipe(map(res => {
+      this.arrayInvitados = [];
+      this.listaDelGuardia = [];
       res.map(inv => {
+        
         //console.log('el id_usuarioVisitante es: ', inv.payload.doc.data()['id_usuarioVisitante'])
         //console.log('el id_usuarioVisitante es: ', inv.payload.doc.data())
         const invitado = inv.payload.doc.data() as Invitado;
         const usuarios = this.dataBase.collection('users').snapshotChanges().pipe(map(res => {
+          this.listaDelGuardia = []
           res.map(usuario => {
+            
             let usuarioResidente = usuario.payload.doc.data() as UsuarioResidente
             if (usuarioResidente.rol == "residente") {
               this.listaDelGuardia.push(usuarioResidente); //Obtengo lista de los residentes
               console.log(usuarioResidente);
+              console.log(this.listaDelGuardia);
             
               if(usuarioResidente.uid == invitado.id_usuarioVisitante){
                 if(invitado.id_usuarioResidente == this.auth.auth.currentUser.uid){
                   this.arrayInvitados.push(invitado); //Obtengo lista de visitantes por residente
-                  console.log(usuarioResidente);
+                  console.log(invitado);
                 }
               } 
             }
           })
         }))
+        usuarios.forEach(users => {
+
+        })
       });
     }));
 
+    this.data.forEach(users => {
+      
+    });
   }
 
   

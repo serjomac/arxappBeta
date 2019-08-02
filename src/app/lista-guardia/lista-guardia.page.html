@@ -9,14 +9,44 @@
         </ion-buttons>
       <ion-title>Lista de Residentes</ion-title>
     </ion-toolbar>
-  </ion-header>
+</ion-header>
+
+<!--
+<ion-content>
+  <ion-list>
+    <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" 
+              type="item-text-wrap" ><!-- href="#/tab/chats/{{chat.id}}" -->
+      <!-- <img ng-src="{{chat.face}}"> 
+      <h2>{{listaDelGuardia[0].name}}</h2>
+      <p>{{listaDelGuardia[0].rol}}</p>
+      <p>{{listaDelGuardia[0].uid}}</p> 
+      <i class="icon ion-chevron-right icon-accessory"></i>
+    </ion-item>
+    <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" 
+              type="item-text-wrap" ><!-- href="#/tab/chats/{{chat.id}}" -->
+      <!-- <img ng-src="{{chat.face}}"> 
+      <h2>{{listaDelGuardia[1].name}}</h2>
+      <p>{{listaDelGuardia[1].rol}}</p>
+      <h3>{{listaDelGuardia[1].uid}}</h3> 
+      <i class="icon ion-chevron-right icon-accessory"></i>
+    </ion-item>
+  </ion-list>
+</ion-content>
+-->
   
   <ion-content>
   
-    <ion-card *ngFor= "let residentes of arrayResidentes">
+    <ion-card *ngFor= "let residente of listaDelGuardia">
       <ion-card-content>
         <ion-card-subtitle></ion-card-subtitle>
-        <ion-label></ion-label>
+        <ion-item>
+          <div class="d-block">
+            <h3>{{residente.name}}</h3>
+            <label for="">{{residente.rol}}</label>
+            <label for="">{{residente.uid}}</label>
+          </div>
+        </ion-item>
+        <ion-label>{{residente.name}}</ion-label>
         <ion-button color="ligth" float-right>
             <ion-icon color="danger" name="close"></ion-icon>   
           </ion-button>
