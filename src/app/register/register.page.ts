@@ -15,6 +15,8 @@ export class RegisterPage implements OnInit {
   public password: string;
   public rolSeleccionado: string;
   public usuarioEnSesion: any;
+  public username: string;
+  public usurioExiste: boolean=false
   constructor(public auth: AuthService, public router: Router, public dataBase: AngularFirestore) { }
 
   ngOnInit() {
@@ -26,20 +28,69 @@ export class RegisterPage implements OnInit {
     if(this.rolSeleccionado == ''){
       alert('Debe seleccionar un tipo de usuario');
     }else{
-      this.auth.register(this.email, this.password, this.name, this.rolSeleccionado).then( auth => {
-        this.usuarioEnSesion = this.dataBase.collection('users').doc(auth['user'].uid).valueChanges();
-        this.usuarioEnSesion.forEach(data => {
-          console.log(data['rol']);
-          if(data['rol'] == "residente"){
-            this.router.navigate(['tabs/home']);
-          }else if (data['rol'] == "visitante"){
-            this.router.navigate(['tutorial']);
+      //debugger
+      
+      var users = this.dataBase.collection('users').valueChanges();
+
+      users.forEach(user => {
+       
+       
+        for (let i = 0; i < user.length; i++) {
+          if(this.username == user[i]['username']){
+            this.usurioExiste = true;
+            break;
+          }else{
+            this.usurioExiste = false
           }
-        }); 
-        //this.router.navigate(['tabs/home'])
-      }).catch(err => console.log(err))
+          
+        }
+        console.log(this.usurioExiste)
+        if(!this.usurioExiste){
+       
+          this.auth.register(this.email, this.password, this.name, this.rolSeleccionado, this.username).then( auth => {
+            this.usuarioEnSesion = this.dataBase.collection('users').doc(auth['user'].uid).valueChanges();
+            this.usuarioEnSesion.forEach(data => {
+              console.log(data['rol']);
+              if(data['rol'] == "residente"){
+                this.router.navigate(['tabs/home']);
+              }else if (data['rol'] == "visitante"){
+                this.router.navigate(['tutorial']);
+              }
+            }); 
+            //this.router.navigate(['tabs/home'])
+          }).catch(err => console.log(err))
+        }
+      });
+
+     // console.log(this.usurioExiste)
+
+      
+
+      
     }
   }
+
+
+
+  existeUsuario = function(username){
+
+    var users = this.dataBase.collection('users').valueChanges();
+    var retorno: boolean = false;
+    users.forEach(user => {
+      //debugger
+      for (let i = 0; i < user.length; i++) {
+        if(username == user[i]['username']){
+          retorno = true;
+          break;
+        }else{
+          retorno = false;
+        }
+      }
+    });
+
+    return retorno;
+  }
+
 
   selectValue = function(mySelect) {
     this.rolSeleccionado = mySelect;

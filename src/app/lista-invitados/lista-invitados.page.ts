@@ -22,6 +22,7 @@ export interface UsuarioInvitado{
   telefono: string;
   estado: boolean;
   uid: string;
+  username: string;
 }
 
 @Component({

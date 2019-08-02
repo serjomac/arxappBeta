@@ -114,19 +114,19 @@ export class AddInvitadoComponent implements OnInit {
         this.usuarios.forEach(user => {
           //console.log(user); 
           user.forEach(res => {
-            debugger
+            
             //console.log(res);
-              if(this.visitanteIngresado == res["name"]){
+              if(this.visitanteIngresado == res["username"]){
                 if(res['rol'] == 'visitante'){
 
 
                   if(this.listaInvitados.length > 0){
 
-                  console.log(this.listaInvitados[0].name)
+                  console.log(this.listaInvitados[0].username)
 
                   for (let i = 0; i < this.listaInvitados.length; i++) {
 
-                      if(this.listaInvitados[i].name == this.visitanteIngresado){
+                      if(this.listaInvitados[i].username == this.visitanteIngresado){
                         this.usuarioYaExiste = true;
                         console.log("El usuario ya existe");
                         this.presentAlert3();

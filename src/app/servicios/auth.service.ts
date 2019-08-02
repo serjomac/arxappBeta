@@ -29,34 +29,77 @@ export class AuthService {
     });
   }
 
-  register(email:string, password: string, name: string, rol: string){
+  register(email:string, password: string, name: string, rol: string, username: string){
+    
     return new Promise((resolve, reject) => {
-      this.AFauth.auth.createUserWithEmailAndPassword(email, password).then(res=>{
-        localStorage.setItem('userUid', res.user.uid);
-        this.dataBase.collection('directions').add({
-          id_usuario: res.user.uid,
-          manzana: '',
-          villa: '',
-          referencia: ''
-        });
-        this.AFauth.auth.currentUser.updateProfile({
-          displayName: name,
-          photoURL: ''
-        }).then(()=>{
-          this.dataBase.collection('users').doc(res.user.uid).set({
-            cedula: '',
-            name: name,
-            lastName: '',
-            rol: rol,
-            telefono: '',
-            uid: res.user.uid,
-            id_direccion: '',
-            estado: false,
-          })
-        })
+      
+      /*
+      var usuarios = this.dataBase.collection("users").valueChanges();
+      usuarios.forEach(user => {
+        debugger
+        for (let i = 0; i < user.length; i++) {
+          console.log(user[i]['username'])
+          if(user[i]['username'] == username){
+
+          usuarioExiste = true;
+          break;
+          }else{
+            usuarioExiste = false
+          }
+        }
+
         
-        resolve(res)
-      }).catch(err => reject(err))
+      });
+      */
+      
+      
+      
+      
+
+      
+      
+
+
+      
+        this.AFauth.auth.createUserWithEmailAndPassword(email, password).then(res=>{
+
+
+          localStorage.setItem('userUid', res.user.uid);
+            this.dataBase.collection('directions').add({
+                id_usuario: res.user.uid,
+                manzana: '',
+                villa: '',
+                referencia: ''
+          });
+            this.AFauth.auth.currentUser.updateProfile({
+                displayName: name,
+                photoURL: ''
+          }).then(()=>{
+            this.dataBase.collection('users').doc(res.user.uid).set({
+                cedula: '',
+                name: name,
+                lastName: '',
+                rol: rol,
+                telefono: '',
+                uid: res.user.uid,
+                id_direccion: '',
+                username: username,
+                estado: false,
+            })
+          })
+          
+          resolve(res)
+        }).catch(err => reject(err));
+
+
+      //}
+              //romperusuario = true;
+          
+        
+      
+
+
+      
     })
     
   }

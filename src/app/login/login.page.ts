@@ -24,7 +24,9 @@ export class LoginPage implements OnInit {
     console.log("estas en la funcion de loggeo");
     this.auth.login(this.email, this.password).then(res=>{
         this.usuarioEnSesion = this.db.collection('users').doc(res['user'].uid).valueChanges();
+        
         this.usuarioEnSesion.forEach(data => {
+          console.log(data)
           console.log(data['rol']);
           if(data['rol'] == "residente"){
             this.router.navigate(['tabs/home']);
