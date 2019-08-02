@@ -8,6 +8,8 @@ import { IonicModule } from '@ionic/angular';
 import { TabsPage } from './tabs.page';
 import { ListaInvitadosPage } from '../lista-invitados/lista-invitados.page';
 import { ListaInvitadosPageModule } from '../lista-invitados/lista-invitados.module';
+import { ListaGuardiaPage } from '../lista-guardia/lista-guardia.page';
+import { ListaGuardiaPageModule } from '../lista-guardia/lista-guardia.module';
 import { AuthGuard } from '../guards/auth.guard'
 
 const routes: Routes = [
@@ -20,8 +22,9 @@ const routes: Routes = [
       { path: 'home', loadChildren: '../home/home.module#HomePageModule' },
       { path: 'chat', loadChildren: '../chat/chat.module#ChatPageModule' },
       { path: 'perfil', loadChildren: '../perfil/perfil.module#PerfilPageModule' },
-      {path: "home/listainvitados", loadChildren:"../lista-invitados/lista-invitados.module#ListaInvitadosPageModule" }
-      ]
+      { path: "home/listainvitados", loadChildren:"../lista-invitados/lista-invitados.module#ListaInvitadosPageModule" },
+      { path: "home/listaguardia", loadChildren:"../lista-guardia/lista-guardia.module#ListaGuardiaPageModule" }
+    ]
   },
   {
     path:'',

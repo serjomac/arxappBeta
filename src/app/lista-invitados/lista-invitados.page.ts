@@ -61,12 +61,10 @@ export class ListaInvitadosPage implements OnInit {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
   
-  addInvitado(listaInvitados){
+  addInvitado(){
     this.modal.create({
       component:AddInvitadoComponent,
-      componentProps: {
-        listaInvitados: listaInvitados,
-      }
+      
     }).then((modal) =>modal.present())
   }   
   ngOnInit() {
@@ -82,10 +80,11 @@ export class ListaInvitadosPage implements OnInit {
             //console.log(usuarioInvitado);
             if(invitado.id_usuarioVisitante == usuarioInvitado.uid){
               if(invitado.id_usuarioResidente == this.auth.auth.currentUser.uid){
-                //console.log("el usuario invitado es: ", usuarioInvitado.name);
+                console.log("el usuario invitado es: ", usuarioInvitado.name);
                 this.arrayInvitados.push(usuarioInvitado);
-                
               }
+              
+ 
             } 
           })
         }))

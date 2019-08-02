@@ -28,8 +28,10 @@ export class LoginPage implements OnInit {
           console.log(data['rol']);
           if(data['rol'] == "residente"){
             this.router.navigate(['tabs/home']);
-          }else if (data['rol'] == "visitante"){
+          }else if (data['rol'] == "visitante") {
             this.router.navigate(['tutorial']);
+          } else {
+            this.router.navigate(['tabs/home/listaguardia']);
           }
         }); 
        

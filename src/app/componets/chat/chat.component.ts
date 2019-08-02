@@ -61,7 +61,7 @@ export class ChatComponent implements OnInit {
               private auth: AngularFireAuth)
               { 
                 
-                this.uid = auth.auth.currentUser.uid
+                this.uid = localStorage.getItem('userUid')
                 this.chatRef = this.fs.collection('vicireelChat', ref=> ref.orderBy('Timestamp')).valueChanges()
                 this.colorNombre = this.dame_color_aleatorio();
                 this.chatRef.forEach(chat => {

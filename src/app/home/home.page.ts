@@ -6,9 +6,6 @@ import { MenuController } from '@ionic/angular';
 
 import { from } from 'rxjs';
 import { AuthService } from '../servicios/auth.service';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -16,30 +13,7 @@ import { map } from 'rxjs/operators';
 })
 export class HomePage {
 
-  public name: string;
-  public numeroInvitadosTotal: string = '0';
-  constructor(private router: Router, private actionSheetController: ActionSheetController, private auth: AuthService, private autFb: AngularFireAuth, private dataBase: AngularFirestore) {
-    
-    var contador: number = 0;
-    this.name = autFb.auth.currentUser.displayName;
-
-    var listaInvitados = this.dataBase.collection('invitados').valueChanges();
-    listaInvitados.forEach(invitado => {
-      invitado.forEach(campoInvitado => {
-        //console.log(campoInvitado['id_usuarioVisitante'])
-        if(campoInvitado['id_usuarioResidente'] == this.autFb.auth.currentUser.uid){
-          
-          contador ++;
-          this.numeroInvitadosTotal = ""+contador;
-          
-        }
-      });
-      contador = 0;
-    });
-    
-    
-    
-  }
+  constructor(private router: Router, private actionSheetController: ActionSheetController, private auth: AuthService) {}
  
   
   async presentActionSheet() {
