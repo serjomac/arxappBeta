@@ -6,20 +6,16 @@ import { MenuController } from '@ionic/angular';
 
 import { from } from 'rxjs';
 import { AuthService } from '../servicios/auth.service';
-<<<<<<< HEAD
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario'
-=======
->>>>>>> 6661d2bac7d125e0103175e18347aa470b64f76c
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-<<<<<<< HEAD
   public user: Usuario;
   public name: string;
   public numeroInvitadosTotal: string = '0';
@@ -46,10 +42,6 @@ export class HomePage {
     
     
   }
-=======
-
-  constructor(private router: Router, private actionSheetController: ActionSheetController, private auth: AuthService) {}
->>>>>>> 6661d2bac7d125e0103175e18347aa470b64f76c
  
   
   async presentActionSheet() {

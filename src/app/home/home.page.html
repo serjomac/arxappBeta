@@ -9,20 +9,43 @@
       <ion-icon name="menu" expand="icon-only" color="light" (click)="presentActionSheet()"> </ion-icon>
     </div>
      
-    <ion-title color="light">
-      ARXAPP
+    <ion-title ([ngModel])="name" color="light">
+      {{name}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-    <ion-img class="imgLogo" src="../../assets/images/logoArxapp.png"></ion-img>
-    <ion-button routerLink="listainvitados" color="primary"> Invitar </ion-button>
+
+<ion-card >
+    <ion-card-header>
+        <img class="icon" src="https://aws.revistavanityfair.es/prod/designs/v1/assets/785x589/49130.jpg">
+        <ion-card-title class="ion-bold ion-text-center marginTop">{{name}}</ion-card-title>
+        <ion-card-subtitle class="ion-text-center marginTop marginBottom"> Mz O villa 1</ion-card-subtitle>
+
+    </ion-card-header>
+    
+    
+</ion-card>
+
+<ion-card >
+
+  
+      <ion-card-title class="ion-bold ion-text-center marginTop">Lista de invitados actual</ion-card-title>
+      <div class="classVisitas marginTop">
+        <h1 color="primary" ([ngModel])="numeroInvitadosTotal">{{numeroInvitadosTotal}}</h1>
+        <ion-icon routerLink="listainvitados" class="bigger" src="assets/icon/visitante.svg"></ion-icon>
+        
+      </div>
+      <ion-card-subtitle class="marginTop marginBottom">Ingresados 3</ion-card-subtitle>
+  
+  
+  
+</ion-card>
+    
+    
 </ion-content>
 
-<ion-footer> 
-  <p>Soy el footer</p> 
 
-</ion-footer>
 

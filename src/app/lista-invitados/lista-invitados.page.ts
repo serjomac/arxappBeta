@@ -5,15 +5,11 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AddInvitadoComponent } from '../componets/add-invitado/add-invitado.component';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { InvitadoServiceService } from '../servicios/InvitadoServiceService';
+import { UsuariosService } from '../servicios/usuarios.service';
+import { Usuario } from '../models/usuario';
 //import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
-export interface Invitado{
-  fechaIngreso: Date;
-  fechaSalida: Date;
-  id_usuarioResidente: string;
-  id_usuarioVisitante: string;
-  estado: boolean;
-}
 
 export interface UsuarioInvitado{
   name: string;
@@ -37,8 +33,8 @@ export class ListaInvitadosPage implements OnInit {
   public data: any;
   public arrayInvitados : any[] = [];
   public listaDeInvitados: string[] = [];
-  
-  constructor(private dataBase: AngularFirestore, private modal: ModalController, private auth: AngularFireAuth) { 
+  //public invitadoTmp: Invitado;
+  constructor(private dataBase: AngularFirestore, private modal: ModalController, private auth: AngularFireAuth, private servicioInvitados: InvitadoServiceService, private servicioUsuario: UsuariosService) { 
   
 
 
@@ -62,55 +58,43 @@ export class ListaInvitadosPage implements OnInit {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
   
-  addInvitado(){
+  addInvitado(listaInvitados){
     this.modal.create({
       component:AddInvitadoComponent,
-      
+      componentProps: {
+        listaInvitados: listaInvitados,
+      }
     }).then((modal) =>modal.present())
   }   
   ngOnInit() {
-    
-    this.data = this.dataBase.collection('invitados').snapshotChanges().pipe(map(res => {
+
+    this.servicioInvitados.getInvitados().subscribe(invitados => {
       this.arrayInvitados = [];
-      res.map(inv => {
-        //console.log('el id_usuarioVisitante es: ', inv.payload.doc.data()['id_usuarioVisitante'])
-        const invitado = inv.payload.doc.data() as Invitado;
-        const usuarios = this.dataBase.collection('users').snapshotChanges().pipe(map(res => {
-          res.map(usuario => {
-            const usuarioInvitado = usuario.payload.doc.data() as UsuarioInvitado
-            //console.log(usuarioInvitado);
-            if(invitado.id_usuarioVisitante == usuarioInvitado.uid){
-              if(invitado.id_usuarioResidente == this.auth.auth.currentUser.uid){
-                console.log("el usuario invitado es: ", usuarioInvitado.name);
-                this.arrayInvitados.push(usuarioInvitado);
-              }
-              
- 
-            } 
-          })
-        }))
-        usuarios.forEach(users => {
+      this.servicioUsuario.getAllUsers().subscribe(usuarios => {
+        for (let i = 0; i < invitados.length; i++) {
+          for (let j = 0; j < usuarios.length; j++) {
+            
+          }
+          
+        }
+      })
+    })    
+    
+  }
 
-        })
-        /*
-        usuarios.forEach(user => {
-          user.forEach(campo => {
-            if(invitado.id_usuarioVisitante == campo['uid']){
-              //const nombreInvitado = campo['name'];
-              //console.log('el usuario invitado es: ', nombreInvitado)
-              const usuarioInviatdo = 
-            }
-          })
-        })
-        */
-        //const i = inv.payload.doc.data() as Invitado;
-        //this.arrayInvitados.push(i);
-      });
-    }));
+  eliminarInvitadoDeLista(invitado: Usuario){
+   
+    //console.log(invitado.uid)
+    this.servicioInvitados.getInvitados().subscribe(res => {
+      for (let i = 0; i < res.length; i++) {
+        
+        
+        
+      } 
+    })
 
-    this.data.forEach(users => {
-      
-    });
+   
+  
   }
 
   

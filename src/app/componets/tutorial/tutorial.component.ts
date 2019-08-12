@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ActionSheetController } from '@ionic/angular';
 import { FirebaseAuth } from '@angular/fire';
-import { AuthService } from 'src/app/servicios/auth.service';
+import { AuthService } from '../../servicios/auth.service';
 @Component({
   selector: 'app-tutorial',
   templateUrl: './tutorial.component.html',

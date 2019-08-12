@@ -29,38 +29,21 @@ export class RegisterPage implements OnInit {
       alert('Debe seleccionar un tipo de usuario');
     }else{
       //debugger
-      
-      var users = this.dataBase.collection('users').valueChanges();
-
-      users.forEach(user => {
+    
        
        
-        for (let i = 0; i < user.length; i++) {
-          if(this.username == user[i]['username']){
-            this.usurioExiste = true;
-            break;
-          }else{
-            this.usurioExiste = false
-          }
-          
-        }
+       
         console.log(this.usurioExiste)
         if(!this.usurioExiste){
        
           this.auth.register(this.email, this.password, this.name, this.rolSeleccionado, this.username).then( auth => {
-            this.usuarioEnSesion = this.dataBase.collection('users').doc(auth['user'].uid).valueChanges();
-            this.usuarioEnSesion.forEach(data => {
-              console.log(data['rol']);
-              if(data['rol'] == "residente"){
-                this.router.navigate(['tabs/home']);
-              }else if (data['rol'] == "visitante"){
-                this.router.navigate(['tutorial']);
-              }
-            }); 
+          this.router.navigate(['tabs/home']);
+             
+           
             //this.router.navigate(['tabs/home'])
           }).catch(err => console.log(err))
         }
-      });
+      
 
      // console.log(this.usurioExiste)
 
