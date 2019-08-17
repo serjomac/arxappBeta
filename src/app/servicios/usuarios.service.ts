@@ -43,4 +43,13 @@ export class UsuariosService {
       })
     }))
   }
+
+  getAllUserResidentes(){
+    return this.dataBase.collection('users', ref => ref.where("rol", "==", "residente")).snapshotChanges().pipe(map(res => {
+      return res.map(data => {
+        const userTmp = data.payload.doc.data() as Usuario;
+          return userTmp;
+      })
+    }))
+  }
 }

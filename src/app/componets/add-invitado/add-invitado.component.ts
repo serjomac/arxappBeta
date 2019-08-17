@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { FirebaseAuth } from '@angular/fire';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase'
-import { from } from 'rxjs';
+import { from, UnsubscriptionError } from 'rxjs';
 import { ModalController, AlertController, NavParams } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 import { InvitadoServiceService } from '../../servicios/InvitadoServiceService';
@@ -23,6 +23,7 @@ export class AddInvitadoComponent implements OnInit {
   public keepGoing: boolean = true;
   public listaInvitados: any[];
   public usuarioYaExiste: boolean = false;
+  public usuarioYaEstaInvitado: boolean = false;
   public invitados : any = []
   public users: any = [];
   public objetoInvitado: Invitado;
@@ -46,18 +47,18 @@ export class AddInvitadoComponent implements OnInit {
       //console.log(this.invitados);
       
     })
-
+    
     
     this.servicioUsuarios.getAllUsers().subscribe(res => {
       this.users = res;
     })
-    
 
+    
     this.servicioInvitado.getInvitadoByIdResidente(this.auth.auth.currentUser.uid).subscribe(invitados => {
       this.usuariosInvitadosAgregados = [];
       this.invitados = invitados;
       //console.log(this.invitados);
-      
+
       for (let i = 0; i < this.invitados.length; i++) {
         console.log(this.invitados[i].id);
         this.servicioUsuarios.getUsersRolInvitado(this.invitados[i].id_usuarioVisitante).subscribe(res => {
@@ -70,7 +71,7 @@ export class AddInvitadoComponent implements OnInit {
           
         })
          
-      }
+      }   
 
 
     });
@@ -135,48 +136,92 @@ export class AddInvitadoComponent implements OnInit {
     this.keepGoing = true;
     //console.log("===>", this.usuariosInvitadosAgregados.length);
     //console.log("===>", this.invitados.length);
+    
+
+
+    let b = this.servicioUsuarios.getuserInvitadoByUsername(this.visitanteIngresado).subscribe( (users: any) => {
+      if(users.length > 0){
+      if(!users[0]['mensaje']){ 
+        
+        console.log(this.auth.auth.currentUser.uid);
+        let a = this.servicioInvitado.getInvitadoByIdResidente(this.auth.auth.currentUser.uid).subscribe((res) => {
+          //console.log(res)
+            if(res){
+              
+            if(res.length >0){
+              res.forEach(data => {
+                console.log("Invitados" + data.invitacion_activa)
+                //console.log(data)
+                if(data.username == this.visitanteIngresado && data.invitacion_activa == false){
+                  console.log('se va a cambiar el estado del invitado: ', data.id);
+                  this.servicioInvitado.updateEstoInvitado(data.id, true);
+                  this.visitanteIngresado = "";
+                  a.unsubscribe();
+                }else if(data.username == this.visitanteIngresado && data.invitacion_activa == true){
+                  console.log('el usuario ya esta invitado');  
+                }else if(data.username == this.visitanteIngresado){        
+                  console.log('se va agregar el usuario');
+                  let invitadoTmp: Invitado = {
+                    estado : false,
+                    invitacion_activa : true,
+                    fecha_ingreso : null,
+                    fecha_salida:null,
+                    id_usuarioResidente : this.auth.auth.currentUser.uid,
+                    name : users[0].name,
+                    lastName: users[0].lastName,
+                    username : users[0].username
+                  }
+                  this.servicioInvitado.addInvitado(invitadoTmp);
+                  a.unsubscribe();
+                }
+              });
+            }else{
+              this.servicioUsuarios.getuserInvitadoByUsername(this.visitanteIngresado).subscribe(res=>{
+                if(res){
+                  
+                  let invitadoTmp: Invitado ={
+                  estado : false,
+                  invitacion_activa : true,
+                  fecha_ingreso : null,
+                  fecha_salida:null,
+                  id_usuarioResidente : this.auth.auth.currentUser.uid,
+                  name : users[0].name,
+                  lastName: users[0].lastName,
+                  username : users[0].username
+                  }
+                  console.log('se va a guardar de una');
+                  this.servicioInvitado.addInvitado(invitadoTmp);
+                  a.unsubscribe();
+                 
+                }else{
+                  console.log('no existe ese invitado');
+                }
+              })
+              
+            }
+          }else { 
+            console.log("el usuario no tiene visitantes");
+          }
+        },
+        (err)=>{
+          console.log("el ", err);
+
+        });
+      }else {
+        console.log("el usuario ingresao no es visitante");
+      }
+    }else{
+      console.log("el usuario no existe")
+    }
+    },
+    (err)=>{
+      console.log("No esta registrdo el invitado", err)
+    })
 
     if(this.visitanteIngresado != ""){
+      
+      
 
-      this.servicioInvitado.getInvitadoByIdResidente(this.auth.auth.currentUser.uid).subscribe(res => {
-        //console.log(res)
-          if(res.length >0){
-            res.forEach(data => {
-              //console.log(data)
-              if(data.username == this.visitanteIngresado && data.invitacion_activa == false){
-                console.log('se va a cambiar el estado');
-              }else if(data.username == this.visitanteIngresado && data.invitacion_activa == true){
-                console.log('el usuario ya esta invitado')  
-              }else{
-                console.log('se va agregar el usuario');
-              }
-            });
-          }else{
-            this.servicioUsuarios.getuserInvitadoByUsername(this.visitanteIngresado).subscribe(res=>{
-              if(res){
-                let invitadoTmp: Invitado ={
-                estado : false,
-                invitacion_activa : true,
-                fecha_ingreso : null,
-                fecha_salida:null,
-                id_residente : this.auth.auth.currentUser.uid,
-                name : res[0][0].name,
-                lastname: res[0][0],
-                username : res[0][0].username
-                }
-                console.log('se va a guardar de una');
-                this.servicioInvitado.addInvitado(invitadoTmp);
-              }else{
-                console.log('no existe ese invitado');
-              }
-            })
-            
-          }
-      })
-
-        this.servicioUsuarios.getuserInvitadoByUsername(this.visitanteIngresado).subscribe(res => {
-          
-        });
 
         
         ////*******METODO QUE FUNCIONA ACTUALMENTE******///
@@ -303,6 +348,8 @@ export class AddInvitadoComponent implements OnInit {
     }
     
   }
+
+
 
   closeChat(){
     this.modal.dismiss();

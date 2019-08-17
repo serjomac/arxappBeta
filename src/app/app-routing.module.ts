@@ -15,7 +15,9 @@ const routes: Routes = [
   //{ path: 'tabs/lista-invitados', component:ListaInvitadosPage},
   { path: 'login', loadChildren: './login/login.module#LoginPageModule', canActivate:[NoLoginGuard]},
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule',canActivate:[NoLoginGuard]},
-  { path: 'tutorial', component: TutorialComponent, canActivate:[AuthGuard]}
+  { path: 'tutorial', component: TutorialComponent, canActivate:[AuthGuard]},
+  {path: 'guardia', component: ListaGuardiaPage},
+  { path: 'lista-invitados-guardia', loadChildren: './lista-invitados-guardia/lista-invitados-guardia.module#ListaInvitadosGuardiaPageModule' }
 ];
 
 @NgModule({

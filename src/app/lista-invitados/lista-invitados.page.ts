@@ -8,6 +8,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { InvitadoServiceService } from '../servicios/InvitadoServiceService';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { Usuario } from '../models/usuario';
+import { Invitado } from '../models/invitado';
 //import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
 
@@ -36,8 +37,6 @@ export class ListaInvitadosPage implements OnInit {
   //public invitadoTmp: Invitado;
   constructor(private dataBase: AngularFirestore, private modal: ModalController, private auth: AngularFireAuth, private servicioInvitados: InvitadoServiceService, private servicioUsuario: UsuariosService) { 
   
-
-
   }
   loadData(event) {
     setTimeout(() => {
@@ -67,32 +66,18 @@ export class ListaInvitadosPage implements OnInit {
     }).then((modal) =>modal.present())
   }   
   ngOnInit() {
-
-    this.servicioInvitados.getInvitados().subscribe(invitados => {
-      this.arrayInvitados = [];
-      this.servicioUsuario.getAllUsers().subscribe(usuarios => {
-        for (let i = 0; i < invitados.length; i++) {
-          for (let j = 0; j < usuarios.length; j++) {
-            
-          }
-          
-        }
-      })
-    })    
+    this.servicioInvitados.getInvitadoEstadoTrueByIdResidente(this.auth.auth.currentUser.uid).subscribe((res)=> {
+      console.log(res);
+      this.arrayInvitados = res;
+    })
     
   }
 
-  eliminarInvitadoDeLista(invitado: Usuario){
+  eliminarInvitadoDeLista(invitado: Invitado){
    
     //console.log(invitado.uid)
-    this.servicioInvitados.getInvitados().subscribe(res => {
-      for (let i = 0; i < res.length; i++) {
-        
-        
-        
-      } 
-    })
-
+    console.log('se va a cambiar el estdo del invitado: ', invitado.id)
+    this.servicioInvitados.updateEstoInvitado(invitado.id, false)
    
   
   }

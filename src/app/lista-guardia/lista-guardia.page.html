@@ -37,7 +37,7 @@
   <ion-content>
   
     <ion-card *ngFor= "let residente of listaDelGuardia">
-      <ion-card-content>
+      <ion-card-content (click)="listIncitados(residente)">
         <ion-card-subtitle></ion-card-subtitle>
         <ion-item>
           <div class="d-block">

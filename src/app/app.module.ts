@@ -16,22 +16,28 @@ import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/fi
 import { ChatComponent } from './componets/chat/chat.component'
 
 import { FormsModule } from '@angular/forms'
-import { TutorialComponent } from './componets/tutorial/tutorial.component';
+import { TutorialComponent } from './componets/tutorial/tutorial.component';  
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { from } from 'rxjs';
 import { AddInvitadoComponent } from './componets/add-invitado/add-invitado.component';
+import { ListaGuardiaPage } from './lista-guardia/lista-guardia.page';
+import { ListaInvitadosPage } from './lista-invitados/lista-invitados.page';
+import { ListaInvitadosGuardiaPage } from './lista-invitados-guardia/lista-invitados-guardia.page';
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
     TutorialComponent,
-    AddInvitadoComponent
+    AddInvitadoComponent,
+    ListaGuardiaPage
+    
     
   ],
   entryComponents: [
     ChatComponent,
     TutorialComponent,
-    AddInvitadoComponent
+    AddInvitadoComponent,
+    ListaGuardiaPage
   ],
   imports: [BrowserModule,BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule, 
     AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule, AngularFirestoreModule, FormsModule],
