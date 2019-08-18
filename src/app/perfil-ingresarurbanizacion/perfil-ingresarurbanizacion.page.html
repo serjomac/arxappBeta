@@ -1,0 +1,46 @@
+
+<ion-header>
+  <ion-toolbar color="primary">
+     <ion-buttons slot="start">
+       <ion-menu-button></ion-menu-button>
+     </ion-buttons>
+     
+     <div class="plusClass" slot="end">
+      <ion-icon name="menu" expand="icon-only" color="light" (click)="presentActionSheet()"> </ion-icon>
+    </div>
+     
+    <ion-title ([ngModel])="name" color="light">
+      Vicrieel
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card >
+      <ion-card-header>
+          <img class="icon" src="https://aws.revistavanityfair.es/prod/designs/v1/assets/785x589/49130.jpg">
+          <ion-card-title class="ion-bold ion-text-center marginTop">{{ nameVisitante }}</ion-card-title>
+
+      </ion-card-header>
+        
+  </ion-card>
+  <ion-card-title class="ion-bold ion-text-center marginTop">Estas a punto de ingresar a Vicrieel</ion-card-title>
+  <ion-card >
+    
+      <div class="classVisitas marginTop">
+        <h1 class="ion-text-center" color="primary" ([ngModel])="numVisitas">Tienes una invitación de {{ nameResidente }}</h1>
+        <!-- <ion-icon routerLink="listainvitados" class="bigger" src="assets/icon/visitante.svg"></ion-icon> -->
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button (click)="ingresarCiudadela()">Ingresar</ion-fab-button>
+        </ion-fab>
+      </div>
+    
+  </ion-card>
+        
+</ion-content>
+
+
+
+
+

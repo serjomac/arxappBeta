@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { InvitadoServiceService } from './invitado-service.service';
+import { InvitadoServiceService } from './invitadoserviceservice';
 
 describe('InvitadoServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

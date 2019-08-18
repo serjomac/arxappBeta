@@ -8,6 +8,24 @@ var RegisterPage = /** @class */ (function () {
         this.auth = auth;
         this.router = router;
         this.dataBase = dataBase;
+        this.usurioExiste = false;
+        this.existeUsuario = function (username) {
+            var users = this.dataBase.collection('users').valueChanges();
+            var retorno = false;
+            users.forEach(function (user) {
+                //debugger
+                for (var i = 0; i < user.length; i++) {
+                    if (username == user[i]['username']) {
+                        retorno = true;
+                        break;
+                    }
+                    else {
+                        retorno = false;
+                    }
+                }
+            });
+            return retorno;
+        };
         this.selectValue = function (mySelect) {
             this.rolSeleccionado = mySelect;
             console.log(mySelect);
@@ -22,19 +40,15 @@ var RegisterPage = /** @class */ (function () {
             alert('Debe seleccionar un tipo de usuario');
         }
         else {
-            this.auth.register(this.email, this.password, this.name, this.rolSeleccionado).then(function (auth) {
-                _this.usuarioEnSesion = _this.dataBase.collection('users').doc(auth['user'].uid).valueChanges();
-                _this.usuarioEnSesion.forEach(function (data) {
-                    console.log(data['rol']);
-                    if (data['rol'] == "residente") {
-                        _this.router.navigate(['tabs/home']);
-                    }
-                    else if (data['rol'] == "visitante") {
-                        _this.router.navigate(['tutorial']);
-                    }
-                });
-                //this.router.navigate(['tabs/home'])
-            }).catch(function (err) { return console.log(err); });
+            //debugger
+            console.log(this.usurioExiste);
+            if (!this.usurioExiste) {
+                this.auth.register(this.email, this.password, this.name, this.rolSeleccionado, this.username).then(function (auth) {
+                    _this.router.navigate(['tabs/home']);
+                    //this.router.navigate(['tabs/home'])
+                }).catch(function (err) { return console.log(err); });
+            }
+            // console.log(this.usurioExiste)
         }
     };
     RegisterPage = tslib_1.__decorate([

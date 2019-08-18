@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { TutorialComponent } from './componets/tutorial/tutorial.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddInvitadoComponent } from './componets/add-invitado/add-invitado.component';
+import { ListaGuardiaPage } from './lista-guardia/lista-guardia.page';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -25,12 +26,14 @@ var AppModule = /** @class */ (function () {
                 AppComponent,
                 ChatComponent,
                 TutorialComponent,
-                AddInvitadoComponent
+                AddInvitadoComponent,
+                ListaGuardiaPage
             ],
             entryComponents: [
                 ChatComponent,
                 TutorialComponent,
-                AddInvitadoComponent
+                AddInvitadoComponent,
+                ListaGuardiaPage
             ],
             imports: [BrowserModule, BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule,
                 AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule, AngularFirestoreModule, FormsModule],
