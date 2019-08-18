@@ -42,7 +42,6 @@ export class InvitadoServiceService {
 
   getInvitadoEstadoTrueByIdResidente(id_Residente: string){
     
-
     return this.dataBse.collection('invitados', ref => ref.where('id_usuarioResidente', '==', id_Residente ).where("invitacion_activa", "==", true)).snapshotChanges().pipe(map(inv => {
       return inv.map(data => {
         const invi = data.payload.doc.data() as Invitado;

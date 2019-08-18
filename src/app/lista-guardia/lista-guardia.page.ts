@@ -63,9 +63,9 @@ export class ListaGuardiaPage implements OnInit {
   }
 
   listIncitados(idResidente: Usuario){
-    localStorage.setItem('idResidente', idResidente.uid)
-    console.log(localStorage.getItem("idResidente"))
-    this.router.navigate(["/lista-invitados-guardia"])
+    localStorage.setItem('idResidente', idResidente.uid);
+    console.log(localStorage.getItem("idResidente"));
+    this.router.navigate(["/lista-invitados-guardia"]);
   }
 
   toggleInfiniteScroll() {

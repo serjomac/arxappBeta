@@ -6,6 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { NoLoginGuard } from './guards/no-login.guard';
 import { from } from 'rxjs';
 import { TutorialComponent } from './componets/tutorial/tutorial.component';
+import { ListaInvitadosGuardiaPage } from './lista-invitados-guardia/lista-invitados-guardia.page';
 
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule',canActivate:[NoLoginGuard]},
   { path: 'tutorial', component: TutorialComponent, canActivate:[AuthGuard]},
   {path: 'guardia', component: ListaGuardiaPage},
-  { path: 'lista-invitados-guardia', loadChildren: './lista-invitados-guardia/lista-invitados-guardia.module#ListaInvitadosGuardiaPageModule' }
+  { path: 'lista-invitados-guardia', component: ListaInvitadosGuardiaPage }
 ];
 
 @NgModule({
