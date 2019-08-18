@@ -23,9 +23,27 @@ var AuthService = /** @class */ (function () {
             _this.router.navigate(['/login']);
         });
     };
-    AuthService.prototype.register = function (email, password, name, rol) {
+    AuthService.prototype.register = function (email, password, name, rol, username) {
         var _this = this;
         return new Promise(function (resolve, reject) {
+            /*
+            var usuarios = this.dataBase.collection("users").valueChanges();
+            usuarios.forEach(user => {
+              debugger
+              for (let i = 0; i < user.length; i++) {
+                console.log(user[i]['username'])
+                if(user[i]['username'] == username){
+      
+                usuarioExiste = true;
+                break;
+                }else{
+                  usuarioExiste = false
+                }
+              }
+      
+              
+            });
+            */
             _this.AFauth.auth.createUserWithEmailAndPassword(email, password).then(function (res) {
                 localStorage.setItem('userUid', res.user.uid);
                 _this.dataBase.collection('directions').add({
@@ -46,11 +64,14 @@ var AuthService = /** @class */ (function () {
                         telefono: '',
                         uid: res.user.uid,
                         id_direccion: '',
+                        username: username,
                         estado: false,
                     });
                 });
                 resolve(res);
             }).catch(function (err) { return reject(err); });
+            //}
+            //romperusuario = true;
         });
     };
     AuthService = tslib_1.__decorate([

@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary-contrast">
+     <ion-buttons slot="start">
+       <ion-menu-button></ion-menu-button>
+     </ion-buttons>
+     
+     <div class="plusClass" slot="end">
+      <ion-icon name="menu" expand="icon-only" color="#fff" (click)="presentActionSheet()"> </ion-icon>
+    </div>
+     
+    <ion-title color="primary">
+      No tiene autorización
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+
+<ion-card color="primary-contrast">
+      <ion-card-content color="primary-contrast">
+        <label>Aún no tiene autorización para entrar</label>
+        <div class="displayButton">
+            <ion-button color="primary-contrast" (click)="closeChat()"> OK </ion-button>
+        </div>
+      </ion-card-content>
+</ion-card>
+
+</ion-content>

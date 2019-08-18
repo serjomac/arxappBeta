@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { InvitadoServiceService } from '../../servicios/InvitadoServiceService';
 import { UsuariosService } from '../../servicios/usuarios.service';
 import { Invitado } from '../../models/invitado';
+import { ServicioNotificacionService } from '../../servicios/servicios-notificaciones/servicio-notificacion.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class AddInvitadoComponent implements OnInit {
   public users: any = [];
   public objetoInvitado: Invitado;
   public usuariosInvitadosAgregados: any = [];
-  constructor(private dataBase: AngularFirestore, private auth: AngularFireAuth, private modal: ModalController, private alert: AlertController, private navParam: NavParams, private servicioInvitado: InvitadoServiceService, private servicioUsuarios: UsuariosService) { 
+  constructor(private dataBase: AngularFirestore, private auth: AngularFireAuth, private modal: ModalController, private alert: AlertController, private navParam: NavParams, private servicioInvitado: InvitadoServiceService, private servicioUsuarios: UsuariosService, private serviceNotificion: ServicioNotificacionService) { 
   
   }
 
@@ -170,8 +171,12 @@ export class AddInvitadoComponent implements OnInit {
                     name : users[0].name,
                     lastName: users[0].lastName,
                     username : users[0].username
-                  }
+                  };
+                  debugger
                   this.servicioInvitado.addInvitado(invitadoTmp);
+                  this.serviceNotificion.registrarNotificacionInvitado(invitadoTmp).subscribe( res => {
+                    console.log(res)
+                  });
                   a.unsubscribe();
                 }
               });

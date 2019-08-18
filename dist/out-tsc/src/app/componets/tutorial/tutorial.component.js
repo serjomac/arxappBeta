@@ -2,9 +2,11 @@ import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ActionSheetController } from '@ionic/angular';
-import { AuthService } from 'src/app/servicios/auth.service';
+import { AuthService } from '../../servicios/auth.service';
+import { Router } from '@angular/router';
 var TutorialComponent = /** @class */ (function () {
-    function TutorialComponent(actionSheetController, auth) {
+    function TutorialComponent(router, actionSheetController, auth) {
+        this.router = router;
         this.actionSheetController = actionSheetController;
         this.auth = auth;
         this.visibleState = 'invisible';
@@ -19,6 +21,7 @@ var TutorialComponent = /** @class */ (function () {
     };
     TutorialComponent.prototype.aparicionImagen = function () {
         this.visibleState = (this.visibleState == 'visible') ? 'invisible' : 'visible';
+        this.router.navigate(["/perfil-invitado"]);
     };
     TutorialComponent.prototype.presentActionSheet = function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
@@ -65,7 +68,7 @@ var TutorialComponent = /** @class */ (function () {
                 ])
             ]
         }),
-        tslib_1.__metadata("design:paramtypes", [ActionSheetController, AuthService])
+        tslib_1.__metadata("design:paramtypes", [Router, ActionSheetController, AuthService])
     ], TutorialComponent);
     return TutorialComponent;
 }());

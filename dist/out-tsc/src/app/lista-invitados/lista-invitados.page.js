@@ -3,14 +3,18 @@ import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
 import { AddInvitadoComponent } from '../componets/add-invitado/add-invitado.component';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { InvitadoServiceService } from '../servicios/InvitadoServiceService';
+import { UsuariosService } from '../servicios/usuarios.service';
 var ListaInvitadosPage = /** @class */ (function () {
-    function ListaInvitadosPage(dataBase, modal, auth) {
+    //public invitadoTmp: Invitado;
+    function ListaInvitadosPage(dataBase, modal, auth, servicioInvitados, servicioUsuario) {
         this.dataBase = dataBase;
         this.modal = modal;
         this.auth = auth;
+        this.servicioInvitados = servicioInvitados;
+        this.servicioUsuario = servicioUsuario;
         this.arrayInvitados = [];
         this.listaDeInvitados = [];
     }
@@ -30,49 +34,25 @@ var ListaInvitadosPage = /** @class */ (function () {
     ListaInvitadosPage.prototype.toggleInfiniteScroll = function () {
         this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
     };
-    ListaInvitadosPage.prototype.addInvitado = function () {
+    ListaInvitadosPage.prototype.addInvitado = function (listaInvitados) {
         this.modal.create({
             component: AddInvitadoComponent,
+            componentProps: {
+                listaInvitados: listaInvitados,
+            }
         }).then(function (modal) { return modal.present(); });
     };
     ListaInvitadosPage.prototype.ngOnInit = function () {
         var _this = this;
-        this.data = this.dataBase.collection('invitados').snapshotChanges().pipe(map(function (res) {
-            _this.arrayInvitados = [];
-            res.map(function (inv) {
-                //console.log('el id_usuarioVisitante es: ', inv.payload.doc.data()['id_usuarioVisitante'])
-                var invitado = inv.payload.doc.data();
-                var usuarios = _this.dataBase.collection('users').snapshotChanges().pipe(map(function (res) {
-                    res.map(function (usuario) {
-                        var usuarioInvitado = usuario.payload.doc.data();
-                        //console.log(usuarioInvitado);
-                        if (invitado.id_usuarioVisitante == usuarioInvitado.uid) {
-                            if (invitado.id_usuarioResidente == _this.auth.auth.currentUser.uid) {
-                                console.log("el usuario invitado es: ", usuarioInvitado.name);
-                                _this.arrayInvitados.push(usuarioInvitado);
-                            }
-                        }
-                    });
-                }));
-                usuarios.forEach(function (users) {
-                });
-                /*
-                usuarios.forEach(user => {
-                  user.forEach(campo => {
-                    if(invitado.id_usuarioVisitante == campo['uid']){
-                      //const nombreInvitado = campo['name'];
-                      //console.log('el usuario invitado es: ', nombreInvitado)
-                      const usuarioInviatdo =
-                    }
-                  })
-                })
-                */
-                //const i = inv.payload.doc.data() as Invitado;
-                //this.arrayInvitados.push(i);
-            });
-        }));
-        this.data.forEach(function (users) {
+        this.servicioInvitados.getInvitadoEstadoTrueByIdResidente(this.auth.auth.currentUser.uid).subscribe(function (res) {
+            console.log(res);
+            _this.arrayInvitados = res;
         });
+    };
+    ListaInvitadosPage.prototype.eliminarInvitadoDeLista = function (invitado) {
+        //console.log(invitado.uid)
+        console.log('se va a cambiar el estdo del invitado: ', invitado.id);
+        this.servicioInvitados.updateEstoInvitado(invitado.id, false);
     };
     tslib_1.__decorate([
         ViewChild(IonInfiniteScroll),
@@ -84,7 +64,7 @@ var ListaInvitadosPage = /** @class */ (function () {
             templateUrl: './lista-invitados.page.html',
             styleUrls: ['./lista-invitados.page.scss'],
         }),
-        tslib_1.__metadata("design:paramtypes", [AngularFirestore, ModalController, AngularFireAuth])
+        tslib_1.__metadata("design:paramtypes", [AngularFirestore, ModalController, AngularFireAuth, InvitadoServiceService, UsuariosService])
     ], ListaInvitadosPage);
     return ListaInvitadosPage;
 }());

@@ -23,6 +23,9 @@ import { AddInvitadoComponent } from './componets/add-invitado/add-invitado.comp
 import { ListaGuardiaPage } from './lista-guardia/lista-guardia.page';
 import { ListaInvitadosPage } from './lista-invitados/lista-invitados.page';
 import { ListaInvitadosGuardiaPage } from './lista-invitados-guardia/lista-invitados-guardia.page';
+import { PerfilInvitadoPage } from './perfil-invitado/perfil-invitado.page';
+
+
 @NgModule({
   declarations: [
     AppComponent,

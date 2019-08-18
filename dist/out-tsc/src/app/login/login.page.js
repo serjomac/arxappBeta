@@ -17,6 +17,7 @@ var LoginPage = /** @class */ (function () {
         this.auth.login(this.email, this.password).then(function (res) {
             _this.usuarioEnSesion = _this.db.collection('users').doc(res['user'].uid).valueChanges();
             _this.usuarioEnSesion.forEach(function (data) {
+                console.log(data);
                 console.log(data['rol']);
                 if (data['rol'] == "residente") {
                     _this.router.navigate(['tabs/home']);

@@ -3,6 +3,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { ActionSheetController } from '@ionic/angular';
 import { FirebaseAuth } from '@angular/fire';
 import { AuthService } from '../../servicios/auth.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-tutorial',
   templateUrl: './tutorial.component.html',
@@ -25,7 +27,7 @@ import { AuthService } from '../../servicios/auth.service';
 export class TutorialComponent implements OnInit {
   visibleState: String = 'invisible';
   
-  constructor(public actionSheetController: ActionSheetController, private auth: AuthService) { }
+  constructor(private router: Router, public actionSheetController: ActionSheetController, private auth: AuthService) { }
 
 
   ngOnInit() {
@@ -40,7 +42,8 @@ export class TutorialComponent implements OnInit {
   }
 
   aparicionImagen(){
-    this.visibleState = (this.visibleState == 'visible') ? 'invisible' : 'visible'
+    this.visibleState = (this.visibleState == 'visible') ? 'invisible' : 'visible';
+    this.router.navigate(["/perfil-invitado"]);
   }
 
   async presentActionSheet() {

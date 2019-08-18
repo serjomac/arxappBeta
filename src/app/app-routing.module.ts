@@ -18,7 +18,14 @@ const routes: Routes = [
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule',canActivate:[NoLoginGuard]},
   { path: 'tutorial', component: TutorialComponent, canActivate:[AuthGuard]},
   {path: 'guardia', component: ListaGuardiaPage},
-  { path: 'lista-invitados-guardia', component: ListaInvitadosGuardiaPage }
+
+  { path: 'lista-invitados-guardia', component: ListaInvitadosGuardiaPage },
+
+  
+  { path: 'perfil-invitado', loadChildren: './perfil-invitado/perfil-invitado.module#PerfilInvitadoPageModule' },
+  { path: 'perfil-ingresarurbanizacion', loadChildren: './perfil-ingresarurbanizacion/perfil-ingresarurbanizacion.module#PerfilIngresarurbanizacionPageModule' },
+  { path: 'auth-ingresar-ciudadela', loadChildren: './componets/auth-ingresar-ciudadela.component#AuthIngresarCiudadelaComponent' }
+
 ];
 
 @NgModule({
