@@ -7,6 +7,7 @@ import { NoLoginGuard } from './guards/no-login.guard';
 import { from } from 'rxjs';
 import { TutorialComponent } from './componets/tutorial/tutorial.component';
 import { ListaInvitadosGuardiaPage } from './lista-invitados-guardia/lista-invitados-guardia.page';
+import { AuthIngresarCiudadelaComponent } from './componets/auth-ingresar-ciudadela/auth-ingresar-ciudadela.component';
 
 
 const routes: Routes = [
@@ -24,8 +25,8 @@ const routes: Routes = [
   
   { path: 'perfil-invitado', loadChildren: './perfil-invitado/perfil-invitado.module#PerfilInvitadoPageModule' },
   { path: 'perfil-ingresarurbanizacion', loadChildren: './perfil-ingresarurbanizacion/perfil-ingresarurbanizacion.module#PerfilIngresarurbanizacionPageModule' },
-  { path: 'auth-ingresar-ciudadela', loadChildren: './componets/auth-ingresar-ciudadela.component#AuthIngresarCiudadelaComponent' }
-
+  { path: 'auth-ingresar-ciudadela', component: AuthIngresarCiudadelaComponent }
+  
 ];
 
 @NgModule({

@@ -13,23 +13,71 @@
   </ion-header>
 
   <ion-content>
-    <ion-slides pager="true">
+    <ion-slides pager>
       
       <ion-slide>
-          <ion-button (click)="aparicionImagen()">Hola</ion-button>
-          <img [@myVisility] = 'visibleState' src="./../../../assets/images/guardia.png" class="img-padding img-opacity" alt="">
+          
+          <img [@myVisility] = 'visibleState' src="./../../../assets/images/Policia-2.png" class="img-padding img-opacity" alt="">
       </ion-slide>
 
-      <ion-slide>
-        <h1>Slide 2</h1>
-        
+      <ion-slide class="fondo">
+        <div style="margin-top: auto; width: 100%">
+          <div class="footer_main">
+              <label for="">Ayudenos a mejorar nuestra seguridad</label>
+              <label for="">En el mapa indica los lugares donde puede acceder</label>
+          </div>
+
+        <div class="footer">
+          <button (click)="perfilInvitado()" class="botonSaltar">Saltar</button>
+        </div>
+      </div>
       </ion-slide>
 
-      <ion-slide>
-        <h1>Slide 3</h1>
-        
+      <ion-slide class="fondo2">
+          <div style="margin-top: auto; width: 100%">
+              <div class="footer_main">
+                  <label for="">Haciendo tap en uno de los lugares marcados</label>
+                  <label for="">podra confirmar el ingreso ayudandonos a mantener un control </label>
+              </div>
+    
+            <div class="footer">
+              <button (click)="perfilInvitado()" class="botonSaltar">Saltar</button>
+            </div>
+          </div>
       </ion-slide>
+
+
+      <ion-slide class="fondo3">
+          <div style="margin-top: auto; width: 100%">
+              <div class="footer_main">
+                  <label for="">Haciendo tap en uno de los lugares marcados</label>
+                  <label for="">podrá tener acceso al area mediante un código QR</label>
+              </div>
+    
+            <div class="footer">
+              <button (click)="perfilInvitado()" class="botonSaltar">Saltar</button>
+            </div>
+          </div>
+      </ion-slide>
+
+       <ion-slide class="fondo4">
+          
+          
+          <div style="margin-top: auto; width: 100%">
+              <div class="footer_main">
+                  <label for="">La seguridad de la Vicrieel siempre a las ordenes</label>
+                  <label for="">gracias por ayudarnos a ciudar el bienestar de los residentes</label>
+              </div>
+    
+            <div class="footer">
+              <button (click)="perfilInvitado()" class="botonSaltar">Continuar</button>
+            </div>
+          </div>
+          
+      </ion-slide>
+
     </ion-slides>
 </ion-content>
+
 
  

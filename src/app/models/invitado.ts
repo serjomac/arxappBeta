@@ -3,8 +3,8 @@ export interface Invitado{
     id_usuarioResidente;       
     estado: boolean;
     invitacion_activa: boolean;
-    fecha_ingreso: string;
-    fecha_salida: string;
+    fecha_ingreso: Date;
+    fecha_salida: Date;
     username: string;
     name: string;   
     lastName: string;

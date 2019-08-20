@@ -41,8 +41,7 @@ export class TutorialComponent implements OnInit {
     
   }
 
-  aparicionImagen(){
-    this.visibleState = (this.visibleState == 'visible') ? 'invisible' : 'visible';
+  perfilInvitado(){
     this.router.navigate(["/perfil-invitado"]);
   }
 

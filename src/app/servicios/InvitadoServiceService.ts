@@ -53,9 +53,10 @@ export class InvitadoServiceService {
    
   }
 
-  updateEstoInvitado(idInvitado: string, estado: boolean){
+  updateEstoInvitado(idInvitado: string, estado: boolean, idResidente: string){
     return this.dataBse.collection('invitados').doc(idInvitado).update({
-      invitacion_activa: estado
+      invitacion_activa: estado,
+      id_usuarioResidente: idResidente
     });
   }
 

@@ -62,7 +62,7 @@ export class ListaInvitadosGuardiaPage implements OnInit {
    
     //console.log(invitado.uid)
     console.log('se va a cambiar el estdo del invitado: ', invitado.id)
-    this.servicioInvitados.updateEstoInvitado(invitado.id, false)
+    this.servicioInvitados.updateEstoInvitado(invitado.id, false, localStorage.getItem("idResidente"))
    
   
   }

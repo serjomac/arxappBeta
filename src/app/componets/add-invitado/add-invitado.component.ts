@@ -9,7 +9,9 @@ import { map } from 'rxjs/operators';
 import { InvitadoServiceService } from '../../servicios/InvitadoServiceService';
 import { UsuariosService } from '../../servicios/usuarios.service';
 import { Invitado } from '../../models/invitado';
-import { ServicioNotificacionService } from '../../servicios/servicios-notificaciones/servicio-notificacion.service';
+import { Socket } from 'ngx-socket-io';
+import { Notificacion } from '../../models/notificacion';
+//import { ServicioNotificacionService } from '../../servicios/servicios-notificaciones/servicio-notificacion.service';
 
 
 @Component({
@@ -29,11 +31,12 @@ export class AddInvitadoComponent implements OnInit {
   public users: any = [];
   public objetoInvitado: Invitado;
   public usuariosInvitadosAgregados: any = [];
-  constructor(private dataBase: AngularFirestore, private auth: AngularFireAuth, private modal: ModalController, private alert: AlertController, private navParam: NavParams, private servicioInvitado: InvitadoServiceService, private servicioUsuarios: UsuariosService, private serviceNotificion: ServicioNotificacionService) { 
+  constructor(private dataBase: AngularFirestore, private auth: AngularFireAuth, private modal: ModalController, private alert: AlertController, private navParam: NavParams, private servicioInvitado: InvitadoServiceService, private servicioUsuarios: UsuariosService,public socketIO : Socket) { 
   
   }
 
   ngOnInit() {
+    this.socketIO.connect();
     this.listaInvitados = this.navParam.get('listaInvitados');
     //console.log(this.listaInvitados.length);
     //console.log(this.addInvitado);
@@ -135,32 +138,126 @@ export class AddInvitadoComponent implements OnInit {
     //console.log('===>',this.invitados.length);
     //console.log('===>',this.users.length);
     this.keepGoing = true;
-    //console.log("===>", this.usuariosInvitadosAgregados.length);
-    //console.log("===>", this.invitados.length);
     
 
+  //=================================================================================//
+  let existeInvitado: boolean = false;
+  let existeinvitadoPeroNoEstaEnLista: boolean = false;
+  let invitadoTmp: Invitado
 
-    let b = this.servicioUsuarios.getuserInvitadoByUsername(this.visitanteIngresado).subscribe( (users: any) => {
+  if(this.visitanteIngresado != ""){
+
+  let lecturaDeInvitados = this.servicioInvitado.getInvitados().subscribe(res => {
+    console.log(res);
+    //debugger
+    
+    for (let i = 0; i < res.length; i++) {
+      if(res[i].username == this.visitanteIngresado && res[i].invitacion_activa == true){
+        existeInvitado = true;
+        
+        break;
+      }else if(res[i].username == this.visitanteIngresado && res[i].invitacion_activa == false){
+        existeinvitadoPeroNoEstaEnLista = true;
+        invitadoTmp = res[i];
+        break;
+      }
+        else if(res[i].username != this.visitanteIngresado){
+          existeInvitado = false;
+        }
+
+    }
+
+    if(existeInvitado){
+      console.log("el invistado ya esta en lista");
+      this.presentAlert3()
+      lecturaDeInvitados.unsubscribe();
+    }else if(existeinvitadoPeroNoEstaEnLista){
+      console.log("se va a actualizar el estado del invitado: ", invitadoTmp);
+      this.servicioInvitado.updateEstoInvitado(invitadoTmp.id, true, this.auth.auth.currentUser.uid);
+      this.visitanteIngresado = "";
+      lecturaDeInvitados.unsubscribe();
+    }else{
+      
+      let leerUsuarioInvitado = this.servicioUsuarios.getuserInvitadoByUsername(this.visitanteIngresado).subscribe(res => {
+        console.log("se agregara un invitado a su lista: ", res);
+        if(res.length > 0){
+          let invitadoNuevo: Invitado = {
+            estado : false,
+            invitacion_activa : true,
+            fecha_ingreso : null,
+            fecha_salida:null,
+            id_usuarioResidente : this.auth.auth.currentUser.uid,
+            name : res[0]["name"],
+            lastName: res[0]["lastName"],
+            username : res[0]["username"]
+          }
+          this.servicioInvitado.addInvitado(invitadoNuevo);
+          this.visitanteIngresado = "";
+          leerUsuarioInvitado.unsubscribe()
+          lecturaDeInvitados.unsubscribe()
+        }else{
+          this.presentAlert();
+          this.visitanteIngresado = "";
+          leerUsuarioInvitado.unsubscribe()
+          lecturaDeInvitados.unsubscribe();
+        
+        }
+      })
+    }
+  })
+  }else{
+    this.presentAlert2();
+  }
+  
+
+
+
+
+
+  //=================================================================================//
+
+    
+
+                                ////*******METODO QUE FUNCIONA ACTUALMENTE******///
+
+  /*
+    this.servicioUsuarios.getuserInvitadoByUsername(this.visitanteIngresado).subscribe( (users: any) => {
       if(users.length > 0){
       if(!users[0]['mensaje']){ 
         
         console.log(this.auth.auth.currentUser.uid);
-        let a = this.servicioInvitado.getInvitadoByIdResidente(this.auth.auth.currentUser.uid).subscribe((res) => {
+        let a = this.servicioInvitado.getInvitados().subscribe((res) => {
           //console.log(res)
             if(res){
               
             if(res.length >0){
               res.forEach(data => {
+                debugger
                 console.log("Invitados" + data.invitacion_activa)
                 //console.log(data)
                 if(data.username == this.visitanteIngresado && data.invitacion_activa == false){
                   console.log('se va a cambiar el estado del invitado: ', data.id);
                   this.servicioInvitado.updateEstoInvitado(data.id, true);
                   this.visitanteIngresado = "";
+
+                  
+                  let notificacion: Notificacion = {
+                    estado : true,
+                    invitacion_activa : true,
+                    fecha_ingreso : new Date(),
+                    fecha_salida: new Date(),
+                    id_residente : this.auth.auth.currentUser.uid,
+                    id_visitante: users[0].uid,
+                    name : data.name,
+                    lastname: data.lastName,
+                    username : data.username
+                  }
+                  this.socketIO.emit("enviarNotificacion", notificacion);
+
                   a.unsubscribe();
                 }else if(data.username == this.visitanteIngresado && data.invitacion_activa == true){
                   console.log('el usuario ya esta invitado');  
-                }else if(data.username == this.visitanteIngresado){        
+                }else {        
                   console.log('se va agregar el usuario');
                   let invitadoTmp: Invitado = {
                     estado : false,
@@ -172,11 +269,25 @@ export class AddInvitadoComponent implements OnInit {
                     lastName: users[0].lastName,
                     username : users[0].username
                   };
-                  debugger
+
+                  let notificacion: Notificacion = {
+                    estado : true,
+                    invitacion_activa : true,
+                    fecha_ingreso : new Date(),
+                    fecha_salida: new Date(),
+                    id_residente : this.auth.auth.currentUser.uid,
+                    id_visitante: invitadoTmp.id,
+                    name : invitadoTmp.name,
+                    lastname: invitadoTmp.lastName,
+                    username : invitadoTmp.username
+                  }
+
+                  //debugger
                   this.servicioInvitado.addInvitado(invitadoTmp);
-                  this.serviceNotificion.registrarNotificacionInvitado(invitadoTmp).subscribe( res => {
-                    console.log(res)
-                  });
+                  this.socketIO.emit("enviarNotificacion", notificacion);
+                  //this.serviceNotificion.registrarNotificacionInvitado(invitadoTmp).subscribe( res => {
+                    //console.log(res)
+                  //});
                   a.unsubscribe();
                 }
               });
@@ -195,9 +306,25 @@ export class AddInvitadoComponent implements OnInit {
                   username : users[0].username
                   }
                   console.log('se va a guardar de una');
+
+
+                  let notificacion: Notificacion = {
+                    estado : true,
+                    invitacion_activa : true,
+                    fecha_ingreso : new Date(),
+                    fecha_salida: new Date(),
+                    id_residente : this.auth.auth.currentUser.uid,
+                    id_visitante: invitadoTmp.id,
+                    name : invitadoTmp.name,
+                    lastname: invitadoTmp.lastName,
+                    username : invitadoTmp.username
+                  }
+
+
                   this.servicioInvitado.addInvitado(invitadoTmp);
+                  this.socketIO.emit("enviarNotificacion", notificacion);
                   a.unsubscribe();
-                 
+                  
                 }else{
                   console.log('no existe ese invitado');
                 }
@@ -223,134 +350,9 @@ export class AddInvitadoComponent implements OnInit {
       console.log("No esta registrdo el invitado", err)
     })
 
-    if(this.visitanteIngresado != ""){
-      
-      
+*/
 
 
-        
-        ////*******METODO QUE FUNCIONA ACTUALMENTE******///
-
-        //console.log("===>");
-        /*
-        for (let i = 0; i < this.usuariosInvitadosAgregados.length; i++) {
-          
-          //console.log("===>", this.usuariosInvitadosAgregados[i])
-         
-          if(this.visitanteIngresado == this.usuariosInvitadosAgregados[i].username){
-            
-              this.servicioInvitado.getInvitadoById(this.invitados[i].id).subscribe(res => {
-                if(res.invitacion_activa == true){
-                  console.log('el usuario ya esta invitado')
-                  
-                }else{
-                  this.servicioInvitado.updateEstoInvitado(this.invitados[i].id);
-                }
-                //console.log("******>", res);
-              })
-              this.usuarioYaExiste = true;
-              break;
-          }else{
-            
-            this.usuarioYaExiste = false;
-          }
-          
-          
-        }
-        */
-
-
-        /*
-        if(!this.usuarioYaExiste){
-          var idVisitanteIngresado: string;
-          var invitadoTmp: Invitado;
-          this.servicioUsuarios.getuserByUsername(this.visitanteIngresado).subscribe(res => {
-            res.forEach(user => {
-              idVisitanteIngresado = user.uid;
-              console.log(idVisitanteIngresado);
-                invitadoTmp = {
-                estado: false,
-                invitacion_activa: true,
-                fecha_ingreso: null,
-                fecha_salida:null,
-                id_usuarioResidente: this.auth.auth.currentUser.uid,
-                id_usuarioVisitante: idVisitanteIngresado,
-                
-              }
-            });
-            this.servicioInvitado.addInvitado(invitadoTmp);
-            
-          })
-
-          
-          //
-        }
-        */
-
-
-        
-
-        /*
-        for (let i = 0; i < this.users.length; i++) {
-          if(this.visitanteIngresado == this.users[i].username && this.users[i].rol == 'visitante'){
-
-            var idVisitanteIngresado = this.users[i].uid;
-
-            //debugger
-            if(this.listaInvitados.length > 0){
-            for (let j = 0; j < this.listaInvitados.length; j++) {
-                  
-                  if(idVisitanteIngresado == this.listaInvitados[j].uid){
-                    existeUsuario = true;
-                    
-                    break;
-                  }else{
-                    this.objetoInvitado = {
-                      estado: false,
-                      invitacion_activa: true,
-                      fecha_ingreso: null,
-                      fecha_salida: null,
-                      id_usuarioResidente: this.auth.auth.currentUser.uid,
-                      id_usuarioVisitante: idVisitanteIngresado
-                    }
-                    
-                  }
-     
-              }
-            }else{
-              this.objetoInvitado = {
-                estado: false,
-                invitacion_activa: true,
-                fecha_ingreso: null,
-                fecha_salida: null,
-                id_usuarioResidente: this.auth.auth.currentUser.uid,
-                id_usuarioVisitante: idVisitanteIngresado
-              }
-              
-            }
-            
-            if(existeUsuario){
-              console.log('el usuario ya esta invitado');
-              alert('El usuario que ingreso ya esta invitado');
-              this.visitanteIngresado = "";
-              break;
-              
-            }else{
-              console.log('No esta invitado aun');
-              console.log(this.objetoInvitado);
-              this.servicioInvitado.addInvitado(this.objetoInvitado);
-              
-            }
-          }
-          
-        }
-        */
-
-
-      
-    }else{
-      this.presentAlert2();
-    }
     
   }
 
@@ -359,6 +361,10 @@ export class AddInvitadoComponent implements OnInit {
   closeChat(){
     this.modal.dismiss();
     
+  }
+
+  sendNotificacion(notificacion: Notificacion){
+    this.socketIO.emit("enviarNotificacion", notificacion)
   }
 
 }

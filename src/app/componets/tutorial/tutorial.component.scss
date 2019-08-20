@@ -5,3 +5,102 @@
 .img-opacity{
     opacity: 0;
 }
+
+
+.fondo{
+    background-image: url("../../../assets/images/mapa.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: auto;
+    
+}
+
+.fondo2{
+    background-image: url("../../../assets/images/mapa2.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: auto;
+    
+}
+
+
+.fondo3{
+    background-image: url("../../../assets/images/mapa3.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: auto;
+    
+}
+
+.fondo4{
+
+    background-image: url("../../../assets/images/Policia-final.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: auto;
+}
+
+.footer{
+    width: 100%;
+    background-color: #fff;
+    color: #0090CF;
+    margin-top: auto;
+
+
+}
+.footer_main{
+    width: 100%;
+    background-color: #0090CF;
+    color: #fff;
+    text-align: left;
+    padding-right: 10px;
+    padding-left: 10px;
+    height: 60px;
+    font-size: 15px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    display: inline-grid;
+}
+.botonSaltar{
+    background-color: #fff;
+    color: #0090CF;
+    margin-left: 250px;
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+
+
+@media (max-width: 1140px){
+    .img-padding{
+        padding-top: 60px;
+        padding-bottom: 100px;
+    }
+}
+
+@media (max-width: 750px){
+    .img-padding{
+        padding-top: 75px;
+        padding-bottom: 70px;
+    }
+
+    .swiper-pagination{
+        bottom: 0px !important;
+    }
+    .swiper-pagination-bullets{
+        bottom: 0px !important;
+    
+    }
+}
+
+@media (max-width: 1080px){
+    .img-padding{
+        padding-top: 65px;
+        padding-bottom: 70px;
+    }
+
+}

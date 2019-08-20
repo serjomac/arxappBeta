@@ -52,4 +52,13 @@ export class UsuariosService {
       })
     }))
   }
+
+  getAllInvitados(){
+    return this.dataBase.collection('users', ref => ref.where("rol", "==", "visitante")).snapshotChanges().pipe(map(res => {
+      return res.map(data => {
+        const userTmp = data.payload.doc.data() as Usuario;
+          return userTmp;
+      })
+    }))
+  }
 }

@@ -1,9 +1,11 @@
 
 <ion-header>
   <ion-toolbar color="primary">
-     <ion-buttons slot="start">
-       <ion-menu-button></ion-menu-button>
-     </ion-buttons>
+      <ion-buttons>
+          <ion-button>
+              <ion-back-button defaultHref="/tutorial"></ion-back-button>
+          </ion-button>
+        </ion-buttons>
      
      <div class="plusClass" slot="end">
       <ion-icon name="menu" expand="icon-only" color="light" (click)="presentActionSheet()"> </ion-icon>
@@ -19,7 +21,7 @@
 
   <ion-card >
       <ion-card-header>
-          <img class="icon" src="https://aws.revistavanityfair.es/prod/designs/v1/assets/785x589/49130.jpg">
+          <img class="icon" src="../../assets/images/avatar.svg">
           <ion-card-title class="ion-bold ion-text-center marginTop">{{ name }}</ion-card-title>
 
       </ion-card-header>
@@ -36,11 +38,11 @@
       </div>
     
   </ion-card>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="redirectIngresarCiudadela()">Tienes una invitación</ion-fab-button>
+<div *ngFor="let notificaiones of notificaiones">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf= "notificaiones.estado == true">
+    <ion-fab-button (click)="redirectIngresarCiudadela()">{{mostrarNotificacion}}</ion-fab-button>
   </ion-fab>
-        
+</div>
 </ion-content>
 
 

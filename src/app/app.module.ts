@@ -24,7 +24,10 @@ import { ListaGuardiaPage } from './lista-guardia/lista-guardia.page';
 import { ListaInvitadosPage } from './lista-invitados/lista-invitados.page';
 import { ListaInvitadosGuardiaPage } from './lista-invitados-guardia/lista-invitados-guardia.page';
 import { PerfilInvitadoPage } from './perfil-invitado/perfil-invitado.page';
+import { AuthIngresarCiudadelaComponent } from './componets/auth-ingresar-ciudadela/auth-ingresar-ciudadela.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
+const config: SocketIoConfig = { url: 'http://localhost:3010/', options: {} };
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ import { PerfilInvitadoPage } from './perfil-invitado/perfil-invitado.page';
     ChatComponent,
     TutorialComponent,
     AddInvitadoComponent,
-    ListaGuardiaPage
+    ListaGuardiaPage,
+    ListaInvitadosGuardiaPage,
+    AuthIngresarCiudadelaComponent
     
     
   ],
@@ -40,10 +45,12 @@ import { PerfilInvitadoPage } from './perfil-invitado/perfil-invitado.page';
     ChatComponent,
     TutorialComponent,
     AddInvitadoComponent,
-    ListaGuardiaPage
+    ListaGuardiaPage,
+    ListaInvitadosGuardiaPage,
+    AuthIngresarCiudadelaComponent
   ],
   imports: [BrowserModule,BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule, 
-    AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule, AngularFirestoreModule, FormsModule],
+    AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule, AngularFirestoreModule, FormsModule, SocketIoModule.forRoot(config)],
   providers: [
     StatusBar,
     SplashScreen,

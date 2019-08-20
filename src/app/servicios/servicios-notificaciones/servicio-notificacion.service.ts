@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Invitado } from '../../models/invitado';
 import {formatDate} from '@angular/common';
+import { Notificacion } from '../../models/notificacion';
+import { Socket } from 'ngx-socket-io';
 
 
 @Injectable({
@@ -11,28 +13,27 @@ export class ServicioNotificacionService {
 
   selectUsuario: Invitado;
   //usuario: Invitado[];
-  readonly URL_API = 'http://18.224.39.112:8098/webservice/administrador/';
+  readonly URL_API = 'https://arxappws.herokuapp.com/notificaciones/create';
 
-  constructor(public http: HttpClient) { 
+  constructor(public http: HttpClient, private socket: Socket) { 
     //this.selectUsuario = new Invitado();
   }
 
-  registrarNotificacionInvitado(selectUsuario: Invitado){
-    var _Url = this.URL_API + "registrar";
-    var fingreso = formatDate(new Date(), 'yyyy/MM/dd HH:mm:ss', 'es');
+  registrarNotificacionInvitado(notificacion: Notificacion){
  
-    let ingresarInvitado: Invitado = {
+    let ingresarInvitado: Notificacion = {
       estado : true,
       invitacion_activa : true,
-      fecha_ingreso : fingreso,
-      fecha_salida: fingreso,
-      id_usuarioResidente : selectUsuario.id_usuarioResidente,
-      name : selectUsuario.name,
-      lastName: selectUsuario.lastName,
-      username : selectUsuario.username
+      fecha_ingreso : new Date,
+      fecha_salida: new Date,
+      id_residente : notificacion.id_residente,
+      id_visitante: notificacion.id_visitante,
+      name : notificacion.name,
+      lastname: notificacion.lastname,
+      username : notificacion.username
     };
 
-    return this.http.post(_Url, JSON.stringify(ingresarInvitado));
+    this.http.post(this.URL_API, ingresarInvitado);
   }
 
   consultarNotificacionInvitado(idResidente: string){
@@ -40,7 +41,7 @@ export class ServicioNotificacionService {
 
     let consultarInvitado = {
       id_usuarioResidente : idResidente,
-    };
+    }; 
 
     return this.http.post(_Url, JSON.stringify(consultarInvitado));
   }
