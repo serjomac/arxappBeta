@@ -145,7 +145,7 @@ var ListaInvitadosPage = /** @class */ (function () {
     ListaInvitadosPage.prototype.eliminarInvitadoDeLista = function (invitado) {
         //console.log(invitado.uid)
         console.log('se va a cambiar el estdo del invitado: ', invitado.id);
-        this.servicioInvitados.updateEstoInvitado(invitado.id, false, this.auth.auth.currentUser.uid);
+        this.servicioInvitados.updateEstosInvitado(invitado.id, false, this.auth.auth.currentUser.uid);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"]),

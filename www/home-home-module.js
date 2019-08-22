@@ -91,6 +91,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _servicios_direcciones_direcciones_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../servicios/direcciones/direcciones.service */ "./src/app/servicios/direcciones/direcciones.service.ts");
+/* harmony import */ var _servicios_InvitadoServiceService__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../servicios/InvitadoServiceService */ "./src/app/servicios/InvitadoServiceService.ts");
+
 
 
 
@@ -101,7 +103,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var HomePage = /** @class */ (function () {
-    function HomePage(router, actionSheetController, auth, autFb, dataBase, servicioDireccion) {
+    function HomePage(router, actionSheetController, auth, autFb, dataBase, servicioDireccion, servicioInvittado) {
         var _this = this;
         this.router = router;
         this.actionSheetController = actionSheetController;
@@ -109,19 +111,12 @@ var HomePage = /** @class */ (function () {
         this.autFb = autFb;
         this.dataBase = dataBase;
         this.servicioDireccion = servicioDireccion;
+        this.servicioInvittado = servicioInvittado;
         this.numeroInvitadosTotal = '0';
         var contador = 0;
         this.name = autFb.auth.currentUser.displayName;
-        var listaInvitados = this.dataBase.collection('invitados').valueChanges();
-        listaInvitados.forEach(function (invitado) {
-            invitado.forEach(function (campoInvitado) {
-                //console.log(campoInvitado['id_usuarioVisitante'])
-                if (campoInvitado['id_usuarioResidente'] == _this.autFb.auth.currentUser.uid) {
-                    contador++;
-                    _this.numeroInvitadosTotal = "" + contador;
-                }
-            });
-            contador = 0;
+        this.servicioInvittado.getInvitadoEstadoTrueByIdResidente(this.autFb.auth.currentUser.uid).subscribe(function (res) {
+            _this.numeroInvitadosTotal = "" + res.length;
         });
     }
     HomePage.prototype.ngOnInit = function () {
@@ -172,7 +167,7 @@ var HomePage = /** @class */ (function () {
             template: __webpack_require__(/*! ./home.page.html */ "./src/app/home/home.page.html"),
             styles: [__webpack_require__(/*! ./home.page.scss */ "./src/app/home/home.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"], _servicios_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"], _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__["AngularFirestore"], _servicios_direcciones_direcciones_service__WEBPACK_IMPORTED_MODULE_8__["DireccionesService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"], _servicios_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"], _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__["AngularFirestore"], _servicios_direcciones_direcciones_service__WEBPACK_IMPORTED_MODULE_8__["DireccionesService"], _servicios_InvitadoServiceService__WEBPACK_IMPORTED_MODULE_9__["InvitadoServiceService"]])
     ], HomePage);
     return HomePage;
 }());

@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario'
 import { Direccion } from '../models/direccion';
 import { DireccionesService } from '../servicios/direcciones/direcciones.service';
+import { InvitadoServiceService } from '../servicios/InvitadoServiceService';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -23,26 +24,14 @@ export class HomePage implements OnInit{
   public name: string;
   public numeroInvitadosTotal: string = '0';
   public direccionUsuario: Direccion;
-  constructor(private router: Router, private actionSheetController: ActionSheetController, private auth: AuthService, private autFb: AngularFireAuth, private dataBase: AngularFirestore, private servicioDireccion: DireccionesService) {
+  constructor(private router: Router, private actionSheetController: ActionSheetController, private auth: AuthService, private autFb: AngularFireAuth, private dataBase: AngularFirestore, private servicioDireccion: DireccionesService, private servicioInvittado: InvitadoServiceService) {
     
     var contador: number = 0;
     this.name = autFb.auth.currentUser.displayName;
 
-
-    var listaInvitados = this.dataBase.collection('invitados').valueChanges();
-    listaInvitados.forEach(invitado => {
-      invitado.forEach(campoInvitado => {
-        //console.log(campoInvitado['id_usuarioVisitante'])
-        if(campoInvitado['id_usuarioResidente'] == this.autFb.auth.currentUser.uid){
-          
-          contador ++;
-          this.numeroInvitadosTotal = ""+contador;
-          
-        }
-      });
-      contador = 0;
-    });
-    
+    this.servicioInvittado.getInvitadoEstadoTrueByIdResidente(this.autFb.auth.currentUser.uid).subscribe(res=>{
+       this.numeroInvitadosTotal = ""+res.length;
+    })
     
     
   }

@@ -9,6 +9,8 @@ import { TutorialComponent } from './componets/tutorial/tutorial.component';
 import { ListaInvitadosGuardiaPage } from './lista-invitados-guardia/lista-invitados-guardia.page';
 import { AuthIngresarCiudadelaComponent } from './componets/auth-ingresar-ciudadela/auth-ingresar-ciudadela.component';
 import { MapaVisitantePage } from './mapa-visitante/mapa-visitante.page';
+import { NoLoginVisitanteGuard } from './guards/no-login-visitante.guard';
+import { AuthGuardiaGuard } from './guards/auth-guardia.guard';
 
 
 const routes: Routes = [
@@ -18,7 +20,7 @@ const routes: Routes = [
   //{ path: 'tabs/lista-invitados', component:ListaInvitadosPage},
   { path: 'login', loadChildren: './login/login.module#LoginPageModule', canActivate:[NoLoginGuard]},
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule',canActivate:[NoLoginGuard]},
-  { path: 'tutorial', component: TutorialComponent, canActivate:[AuthGuard]},
+  { path: 'tutorial', component: TutorialComponent},
   {path: 'guardia', component: ListaGuardiaPage},
 
   { path: 'lista-invitados-guardia', component: ListaInvitadosGuardiaPage },

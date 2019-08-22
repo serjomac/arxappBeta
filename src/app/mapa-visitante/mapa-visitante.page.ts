@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { create } from 'domain';
+
 
 import { ModalController, AlertController, NavParams } from '@ionic/angular';
 import { AuthIngresarCiudadelaComponent } from '../componets/auth-ingresar-ciudadela/auth-ingresar-ciudadela.component';
-import { setTimeout } from 'timers';
+
 
 
 @Component({
@@ -46,6 +46,11 @@ export class MapaVisitantePage implements OnInit {
     this.estadoQRParque = false;
   }
 
+  ocultarQr(){
+    this.estadoQRClub = false;
+    this.estadoQRComplejo = false;
+    this.estadoQRParque = false;
+  }
   mostrarElQRGeneradoComplejo(){
     console.log('despues del modal');
     this.estadoQRClub = false;
@@ -83,7 +88,7 @@ export class MapaVisitantePage implements OnInit {
 
   async generarQRParque() {
     const alert = await this.alert.create({
-      header: 'Estás por ingresar al parque',
+      header: 'Estás por ingresar al gimnasio',
       subHeader: '¿Seguro qué deseas realizar esta acción?',
       //message: 'Estás por ingresar al club',
       buttons: [{
@@ -104,7 +109,7 @@ export class MapaVisitantePage implements OnInit {
 
   async generarQRComplejo() {
     const alert = await this.alert.create({
-      header: 'Estás por ingresar al complejo',
+      header: 'Estás por ingresar al parque',
       subHeader: '¿Seguro qué deseas realizar esta acción?',
       //message: 'Estás por ingresar al club',
       buttons: [{

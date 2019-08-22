@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { IonInfiniteScroll, ModalController, ActionSheetController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AddInvitadoComponent } from '../componets/add-invitado/add-invitado.component';
@@ -8,6 +8,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, Route } from '@angular/router'
 import { UsuariosService } from '../servicios/usuarios.service';
 import { Usuario } from '../models/usuario';
+import { AuthService } from '../servicios/auth.service';
+import { DireccionesService } from '../servicios/direcciones/direcciones.service';
+import { Direccion } from '../models/direccion';
 //import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
 export interface Invitado{
@@ -39,11 +42,12 @@ export interface UsuarioResidente{
 
 export class ListaGuardiaPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  public arrayDirecciones: any = [];
   public data: any;
   public arrayInvitados : any[] = [];
   public listaDelGuardia: any[] = [];
   
-  constructor(private dataBase: AngularFirestore, public router: Router, private auth: AngularFireAuth, private servicioUsuario: UsuariosService) { 
+  constructor(private dataBase: AngularFirestore, public router: Router, private auth: AngularFireAuth, private servicioUsuario: UsuariosService,private actionSheetController: ActionSheetController, private authService: AuthService, private direcciones: DireccionesService) { 
   
   }
 
@@ -60,6 +64,23 @@ export class ListaGuardiaPage implements OnInit {
         event.target.disabled = true;
       }
     }, 500);
+  }
+
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Opciones',
+      buttons: [{
+        text: 'Cerrar sesion',
+        role: 'destructive',
+        icon: 'log-out',
+        handler: () => {
+          this.authService.logOut();
+        }
+      }
+      ]
+    });
+    await actionSheet.present();
   }
 
   listIncitados(idResidente: Usuario){
@@ -80,7 +101,16 @@ export class ListaGuardiaPage implements OnInit {
   ngOnInit() {
     this.servicioUsuario.getAllUserResidentes().subscribe((res)=>{
       this.listaDelGuardia = res;
-      console.log(this.listaDelGuardia);
+      for (let i = 0; i < this.listaDelGuardia.length; i++) {
+        this.direcciones.getDireccionByIdResidente(this.listaDelGuardia[i].uid).subscribe(res=>{
+          //console.log(res[0])
+          this.arrayDirecciones.push(res[0]);
+          console.log(this.arrayDirecciones[i]);
+        })
+        
+      }
+     
+      
     })
   }
 

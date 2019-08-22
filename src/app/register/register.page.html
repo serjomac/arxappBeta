@@ -2,8 +2,10 @@
   <ion-toolbar color="primary">
     <ion-title>Registrarse</ion-title>
     
-      <ion-buttons slot="start" >
-        <ion-back-button color="light"></ion-back-button>
+    <ion-buttons>
+        <ion-button>
+            <ion-back-button defaultHref="/login"></ion-back-button>
+        </ion-button>
       </ion-buttons>
     
   </ion-toolbar>
@@ -17,7 +19,7 @@
     <ion-label>Tipo de usuario</ion-label>
     <ion-select  [(ngModel)]="seleccion" cancelText="Cancelar" (ngModelChange)="selectValue(seleccion)" placeholder="Sleleccionar un tipo de usuario">
       <ion-select-option value="residente">Residente</ion-select-option>
-      <ion-select-option value="visitante">Visitatne</ion-select-option>
+      <ion-select-option value="visitante">Visitante</ion-select-option>
       <ion-select-option value="guardia">Guardia</ion-select-option>
     </ion-select>
   </ion-item>

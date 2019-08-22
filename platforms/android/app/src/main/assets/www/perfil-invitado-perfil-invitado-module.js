@@ -58,7 +58,7 @@ var PerfilInvitadoPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<ion-header>\n  <ion-toolbar color=\"primary\">\n      <ion-buttons>\n          <ion-button>\n              <ion-back-button defaultHref=\"/tutorial\"></ion-back-button>\n          </ion-button>\n        </ion-buttons>\n     \n     <div class=\"plusClass\" slot=\"end\">\n      <ion-icon name=\"menu\" expand=\"icon-only\" color=\"light\" (click)=\"presentActionSheet()\"> </ion-icon>\n    </div>\n     \n    <ion-title ([ngModel])=\"name\" color=\"light\">\n      Vicrieel\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card >\n      <ion-card-header>\n          <img class=\"icon\" src=\"../../assets/images/avatar.svg\">\n          <ion-card-title class=\"ion-bold ion-text-center marginTop\">{{ name }}</ion-card-title>\n\n      </ion-card-header>\n        \n  </ion-card>\n\n  <ion-card >\n    \n      <ion-card-title class=\"ion-bold ion-text-center marginTop\"></ion-card-title>\n      <div class=\"classVisitas marginTop\">\n        <h1 class=\"ion-text-center\" color=\"primary\" ([ngModel])=\"numVisitas\">{{ numVisitas }} visitas a Vicrieel</h1>\n        <!-- <ion-icon routerLink=\"listainvitados\" class=\"bigger\" src=\"assets/icon/visitante.svg\"></ion-icon> -->\n        \n      </div>\n    \n  </ion-card>\n<div *ngFor=\"let notificaiones of notificaiones\">\n  <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\" *ngIf= \"notificaiones.estado == true\">\n    <ion-fab-button (click)=\"redirectIngresarCiudadela()\">{{mostrarNotificacion}}</ion-fab-button>\n  </ion-fab>\n</div>\n</ion-content>\n\n\n\n\n"
+module.exports = "\n<ion-header>\n  <ion-toolbar color=\"primary\">\n      \n     \n     <div class=\"plusClass\" slot=\"end\">\n      <ion-icon name=\"menu\" expand=\"icon-only\" color=\"light\" (click)=\"presentActionSheet()\"> </ion-icon>\n    </div>\n     \n    <ion-title ([ngModel])=\"name\" color=\"light\">\n      Vicrieel\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card>\n      <ion-card-header>\n          <img class=\"icon\" src=\"../../assets/images/avatar.svg\">\n          <ion-card-title class=\"ion-bold ion-text-center marginTop\">{{ name }}</ion-card-title>\n\n      </ion-card-header>\n        \n  </ion-card>\n\n  <ion-card>\n    \n      <ion-card-title class=\"ion-bold ion-text-center marginTop\"></ion-card-title>\n      <div class=\"classVisitas marginTop\">\n        <h1 class=\"ion-text-center\" color=\"primary\" ([ngModel])=\"numVisitas\">{{ numVisitas }} visitas a Vicrieel</h1>\n               \n      </div>\n  </ion-card>\n<div ([ngModel])=\"invitacion_activa\">\n  <ion-fab vertical=\"bottom\" style=\"display:grid\" horizontal=\"end\" slot=\"fixed\" *ngIf= \"invitacion_activa || estadoInvitado\">\n  \n    <ion-label>Invitación nueva</ion-label>\n    <img  class=\"icon_invitacion\" (click)=\"redirectIngresarCiudadela()\" src=\"../../assets/images/wedding-invitation.png\">  \n  </ion-fab>\n</div>\n</ion-content>\n\n\n\n\n"
 
 /***/ }),
 
@@ -69,7 +69,7 @@ module.exports = "\n<ion-header>\n  <ion-toolbar color=\"primary\">\n      <ion-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".icon {\n  margin: auto;\n  height: 35vw;\n  width: 35vw;\n  border-radius: 50%;\n  box-shadow: 0 0 5px #3d3d3d; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9qb25hdGhhbm1hY2lhcy9Eb2N1bWVudHMvSm9uYXRoYW4vRXNwb2wvaW50ZWdyYWRvcmEvYXJ4YXBwQmV0YS9zcmMvYXBwL3BlcmZpbC1pbnZpdGFkby9wZXJmaWwtaW52aXRhZG8ucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBWTtFQUNaLFlBQVk7RUFDWixXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLDJCQUFtQyxFQUFBIiwiZmlsZSI6InNyYy9hcHAvcGVyZmlsLWludml0YWRvL3BlcmZpbC1pbnZpdGFkby5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaWNvbiB7XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIGhlaWdodDogMzV2dzsgXG4gICAgd2lkdGg6IDM1dnc7IFxuICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgICBib3gtc2hhZG93OiAwIDAgNXB4IHJnYig2MSwgNjEsIDYxKTtcbiAgIFxufSJdfQ== */"
+module.exports = ".icon {\n  margin: auto;\n  height: 35vw;\n  width: 35vw;\n  border-radius: 50%;\n  box-shadow: 0 0 5px #3d3d3d; }\n\n.icon_invitacion {\n  margin: auto;\n  height: 20vw;\n  width: 20vw;\n  border-radius: 50%;\n  box-shadow: 0 0 5px #3d3d3d; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9qb25hdGhhbm1hY2lhcy9Eb2N1bWVudHMvSm9uYXRoYW4vRXNwb2wvaW50ZWdyYWRvcmEvYXJ4YXBwQmV0YS9zcmMvYXBwL3BlcmZpbC1pbnZpdGFkby9wZXJmaWwtaW52aXRhZG8ucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBWTtFQUNaLFlBQVk7RUFDWixXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLDJCQUFtQyxFQUFBOztBQUl2QztFQUNJLFlBQVk7RUFDWixZQUFZO0VBQ1osV0FBVztFQUNYLGtCQUFrQjtFQUNsQiwyQkFBbUMsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3BlcmZpbC1pbnZpdGFkby9wZXJmaWwtaW52aXRhZG8ucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmljb24ge1xuICAgIG1hcmdpbjogYXV0bztcbiAgICBoZWlnaHQ6IDM1dnc7IFxuICAgIHdpZHRoOiAzNXZ3OyBcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XG4gICAgYm94LXNoYWRvdzogMCAwIDVweCByZ2IoNjEsIDYxLCA2MSk7XG4gICBcbn1cblxuLmljb25faW52aXRhY2lvbiB7XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIGhlaWdodDogMjB2dzsgXG4gICAgd2lkdGg6IDIwdnc7IFxuICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgICBib3gtc2hhZG93OiAwIDAgNXB4IHJnYig2MSwgNjEsIDYxKTtcbiAgIFxufSJdfQ== */"
 
 /***/ }),
 
@@ -87,11 +87,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _servicios_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../servicios/auth.service */ "./src/app/servicios/auth.service.ts");
-/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/auth/index.js");
-/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
-/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/fesm5/ngx-socket-io.js");
+/* harmony import */ var _servicios_auth_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../servicios/auth.service */ "./src/app/servicios/auth.service.ts");
+/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/auth/index.js");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/fesm5/ngx-socket-io.js");
+/* harmony import */ var _servicios_usuarios_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../servicios/usuarios.service */ "./src/app/servicios/usuarios.service.ts");
+/* harmony import */ var _servicios_InvitadoServiceService__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../servicios/InvitadoServiceService */ "./src/app/servicios/InvitadoServiceService.ts");
+
 
 
 
@@ -102,7 +104,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var PerfilInvitadoPage = /** @class */ (function () {
-    function PerfilInvitadoPage(router, actionSheetController, auth, autFb, dataBase, socketIO, ngZone) {
+    function PerfilInvitadoPage(router, actionSheetController, auth, autFb, dataBase, socketIO, ngZone, usuarios, invitadoService, alert) {
         this.router = router;
         this.actionSheetController = actionSheetController;
         this.auth = auth;
@@ -110,9 +112,14 @@ var PerfilInvitadoPage = /** @class */ (function () {
         this.dataBase = dataBase;
         this.socketIO = socketIO;
         this.ngZone = ngZone;
+        this.usuarios = usuarios;
+        this.invitadoService = invitadoService;
+        this.alert = alert;
         this.mostrarNotificacion = false;
-        this.numVisitas = '0';
+        this.numVisitas = 0;
         this.notificaiones = [];
+        this.invitacion_activa = false;
+        this.estadoInvitado = false;
         localStorage.setItem('objUsuarioEnSession', JSON.stringify(""));
         this.name = autFb.auth.currentUser.displayName;
         this.idInvitado = autFb.auth.currentUser.uid;
@@ -122,7 +129,37 @@ var PerfilInvitadoPage = /** @class */ (function () {
         //autFb.auth.currentUser.uid = this.idInvitado;
     }
     PerfilInvitadoPage.prototype.redirectIngresarCiudadela = function () {
-        this.router.navigate(["/perfil-ingresarurbanizacion"]);
+        if (this.estadoInvitado) {
+            this.router.navigate(["/mapa-visitante"]);
+        }
+        else {
+            this.presentNoAcceso();
+        }
+    };
+    PerfilInvitadoPage.prototype.presentNoAcceso = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alert.create({
+                            header: 'Acesso denegado',
+                            subHeader: 'Aún no está dentro de la urbanización',
+                            message: 'Debe tener el acceso en garita de Vicrieel.',
+                            buttons: [{
+                                    text: "Aceptar",
+                                    handler: function (blah) {
+                                    }
+                                }]
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     PerfilInvitadoPage.prototype.presentActionSheet = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
@@ -180,7 +217,7 @@ var PerfilInvitadoPage = /** @class */ (function () {
                     var objInvitado = campoInvitado;
                     localStorage.setItem('objInvitadoEnSession', JSON.stringify(objInvitado));
                     contador++;
-                    _this.numVisitas = "" + contador;
+                    _this.numVisitas = contador;
                     return;
                 }
             });
@@ -189,45 +226,16 @@ var PerfilInvitadoPage = /** @class */ (function () {
     };
     PerfilInvitadoPage.prototype.ngOnInit = function () {
         var _this = this;
-        this.socketIO.connect();
-        this.getNoti().subscribe(function (noti) {
-            _this.notificaiones = [];
-            _this.mostrarNotificacion = false;
-            _this.notificaiones.push(noti);
-            localStorage.setItem("notificaciones", JSON.stringify(_this.notificaiones));
-            for (var i = 0; i < _this.notificaiones.length; i++) {
-                //debugger
-                if (_this.notificaiones[i].id_visitante != _this.autFb.auth.currentUser.uid) {
-                    console.log("se enviaro pero no te pertenece la notificacion");
+        this.usuarios.getUsersRolInvitado(this.idInvitado).subscribe(function (res) {
+            var invitadoTmp = res[0];
+            console.log(invitadoTmp.uid);
+            _this.invitadoService.getInvitadoById(invitadoTmp["uid"]).subscribe(function (invitado) {
+                if (invitado.length > 0) {
+                    console.log(invitado.length);
+                    _this.invitacion_activa = invitado[0].invitacion_activa;
+                    _this.numVisitas = invitado[0].numeroVisitas;
+                    _this.estadoInvitado = invitado[0].estado;
                 }
-                else if (_this.notificaiones[i].invitacion_activa == true) {
-                    _this.mostrarNotificacion = true;
-                    console.log(_this.notificaiones[i]);
-                    break;
-                }
-            }
-        });
-    };
-    PerfilInvitadoPage.prototype.getNoti = function () {
-        var _this = this;
-        var observable = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"](function (observer) {
-            _this.socketIO.on("notificacion", function (data) {
-                observer.next(data);
-            });
-        });
-        return observable;
-    };
-    PerfilInvitadoPage.prototype.connect = function () {
-        var _this = this;
-        var isAvailable;
-        var isWaitng;
-        this.socketIO.on("result", function (result) {
-            _this.ngZone.run(function () {
-                isAvailable = true;
-                isWaitng = false;
-                var data = result;
-                console.log("result");
-                console.log(result);
             });
         });
     };
@@ -237,7 +245,7 @@ var PerfilInvitadoPage = /** @class */ (function () {
             template: __webpack_require__(/*! ./perfil-invitado.page.html */ "./src/app/perfil-invitado/perfil-invitado.page.html"),
             styles: [__webpack_require__(/*! ./perfil-invitado.page.scss */ "./src/app/perfil-invitado/perfil-invitado.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"], _servicios_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"], _angular_fire_auth__WEBPACK_IMPORTED_MODULE_6__["AngularFireAuth"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_7__["AngularFirestore"], ngx_socket_io__WEBPACK_IMPORTED_MODULE_8__["Socket"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"], _servicios_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"], _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__["AngularFirestore"], ngx_socket_io__WEBPACK_IMPORTED_MODULE_7__["Socket"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"], _servicios_usuarios_service__WEBPACK_IMPORTED_MODULE_8__["UsuariosService"], _servicios_InvitadoServiceService__WEBPACK_IMPORTED_MODULE_9__["InvitadoServiceService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]])
     ], PerfilInvitadoPage);
     return PerfilInvitadoPage;
 }());

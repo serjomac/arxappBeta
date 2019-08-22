@@ -1,5 +1,73 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["tabs-tabs-module"],{
 
+/***/ "./src/app/guards/auth.guard.ts":
+/*!**************************************!*\
+  !*** ./src/app/guards/auth.guard.ts ***!
+  \**************************************/
+/*! exports provided: AuthGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return AuthGuard; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/auth/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! util */ "./node_modules/util/util.js");
+/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var _servicios_usuarios_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../servicios/usuarios.service */ "./src/app/servicios/usuarios.service.ts");
+
+
+
+
+
+
+
+
+var AuthGuard = /** @class */ (function () {
+    function AuthGuard(AFauth, router, datBase, usuarioServicio) {
+        this.AFauth = AFauth;
+        this.router = router;
+        this.datBase = datBase;
+        this.usuarioServicio = usuarioServicio;
+        this.estado = true;
+    }
+    AuthGuard.prototype.canActivate = function (next, state) {
+        var _this = this;
+        return this.AFauth.authState.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (auth) {
+            if (Object(util__WEBPACK_IMPORTED_MODULE_4__["isNullOrUndefined"])(auth)) {
+                _this.router.navigate(['/login']);
+                return false;
+            }
+            else {
+                var currentUser = JSON.parse(localStorage.getItem("currentUser"));
+                console.log("el current! ", currentUser["rol"]);
+                if (currentUser["rol"] == "residente") {
+                    return true;
+                }
+                else {
+                    _this.router.navigate(['/login']);
+                    return false;
+                }
+            }
+        }));
+    };
+    AuthGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__["AngularFireAuth"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__["AngularFirestore"], _servicios_usuarios_service__WEBPACK_IMPORTED_MODULE_7__["UsuariosService"]])
+    ], AuthGuard);
+    return AuthGuard;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/tabs/tabs.module.ts":
 /*!*************************************!*\
   !*** ./src/app/tabs/tabs.module.ts ***!
@@ -73,7 +141,7 @@ var TabsPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<ion-tabs >\n    <ion-tab-bar slot=\"bottom\" class=\"tabBarClass\">\n\n        <ion-tab-button tab=\"home\">\n          <ion-label>Inicio</ion-label>\n          <ion-icon name=\"home\"></ion-icon>\n        </ion-tab-button>\n    \n        <ion-tab-button tab=\"chat\">\n          <ion-label>Chat</ion-label>\n          <ion-icon name=\"chatbubbles\"></ion-icon>\n        </ion-tab-button>\n\n        <ion-tab-button tab=\"perfil\">\n            <ion-label>Perfil</ion-label>\n            <ion-icon name=\"person\"></ion-icon>\n          </ion-tab-button>\n    \n      </ion-tab-bar>\n</ion-tabs>\n\n\n\n\n  "
+module.exports = "\n\n<ion-tabs >\n    <ion-tab-bar slot=\"bottom\" class=\"tabBarClass\">\n\n        <ion-tab-button tab=\"home\">\n          <ion-label>Inicio</ion-label>\n          <ion-icon name=\"home\"></ion-icon>\n        </ion-tab-button>\n    \n        <ion-tab-button tab=\"chat\">\n          <ion-label>Chat</ion-label>\n          <ion-icon name=\"chatbubbles\"></ion-icon>\n        </ion-tab-button>\n\n        \n    \n      </ion-tab-bar>\n</ion-tabs>\n\n\n\n\n  "
 
 /***/ }),
 

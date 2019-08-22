@@ -86,13 +86,37 @@ export class AddInvitadoComponent implements OnInit {
     const alert = await this.alert.create({
       header: 'Error',
       subHeader: 'Usuario no valido',
-      message: 'El usuario ingresado no existe',
+      message: 'El usuario ingresado no existe o no es visitante',
       buttons: [{
         text: "Aceptar",
         handler: (blah) => {
           this.visitanteIngresado = '';
         }
       }]
+    });
+
+    await alert.present();
+  }
+
+  async alterAgregoCorrecto() {
+    const alert = await this.alert.create({
+      header: 'Perfecto',
+      subHeader: 'El usuario se agregó correctamente',
+      message: '¿Desea agregar otro usuario?',
+      buttons: [{
+        text: "Aceptar",
+        handler: (blah) => {
+          this.visitanteIngresado = '';
+        }
+      },
+      {
+        text: "Cancelar",
+        handler: (blah) => {
+          this.closeChat();
+        }
+        
+      }
+    ]
     });
 
     await alert.present();
@@ -124,7 +148,7 @@ export class AddInvitadoComponent implements OnInit {
         handler: (blah) => {
           this.visitanteIngresado = '';
         }
-      }]
+      },]
     });
 
     await alert.present();
@@ -173,7 +197,8 @@ export class AddInvitadoComponent implements OnInit {
       lecturaDeInvitados.unsubscribe();
     }else if(existeinvitadoPeroNoEstaEnLista){
       console.log("se va a actualizar el estado del invitado: ", invitadoTmp);
-      this.servicioInvitado.updateEstoInvitado(invitadoTmp.id, true, this.auth.auth.currentUser.uid);
+      this.servicioInvitado.updateEstoInvitado(this.auth.auth.currentUser.uid, true, this.auth.auth.currentUser.uid);
+      this.servicioInvitado.updateEstadoGuardiaInvitado(invitadoTmp.id, true, this.auth.auth.currentUser.uid);
       this.visitanteIngresado = "";
       lecturaDeInvitados.unsubscribe();
     }else{
@@ -182,7 +207,10 @@ export class AddInvitadoComponent implements OnInit {
         console.log("se agregara un invitado a su lista: ", res);
         if(res.length > 0){
           let invitadoNuevo: Invitado = {
+            id: res[0]['uid'],
+            estado_guardia: true,
             estado : false,
+            numeroVisitas: 0,
             invitacion_activa : true,
             fecha_ingreso : null,
             fecha_salida:null,
@@ -191,7 +219,9 @@ export class AddInvitadoComponent implements OnInit {
             lastName: res[0]["lastName"],
             username : res[0]["username"]
           }
+          console.log(invitadoNuevo)
           this.servicioInvitado.addInvitado(invitadoNuevo);
+          this.alterAgregoCorrecto();
           this.visitanteIngresado = "";
           leerUsuarioInvitado.unsubscribe()
           lecturaDeInvitados.unsubscribe()

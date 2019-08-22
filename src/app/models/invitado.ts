@@ -8,9 +8,7 @@ export interface Invitado{
     username: string;
     name: string;   
     lastName: string;
-    
-   
-
-   
+    numeroVisitas: number;
+    estado_guardia: boolean;
    
 }

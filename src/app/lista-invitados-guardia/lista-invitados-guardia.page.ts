@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { IonInfiniteScroll, ModalController, AlertController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AddInvitadoComponent } from '../componets/add-invitado/add-invitado.component';
@@ -20,7 +20,7 @@ export class ListaInvitadosGuardiaPage implements OnInit {
   public data: any;
   public arrayInvitados : any[] = [];
   public listaDeInvitados: string[] = [];
-  constructor(private dataBase: AngularFirestore, private modal: ModalController, private auth: AngularFireAuth, private servicioInvitados: InvitadoServiceService, private servicioUsuario: UsuariosService) { 
+  constructor(private dataBase: AngularFirestore, private modal: ModalController, private auth: AngularFireAuth, private servicioInvitados: InvitadoServiceService, private servicioUsuario: UsuariosService, private alert: AlertController) { 
   
   }
   loadData(event) {
@@ -51,20 +51,72 @@ export class ListaInvitadosGuardiaPage implements OnInit {
     }).then((modal) =>modal.present())
   }   
   ngOnInit() {
-    this.servicioInvitados.getInvitadoEstadoTrueByIdResidente(localStorage.getItem("idResidente")).subscribe((res)=> {
+    this.arrayInvitados = []
+    this.servicioInvitados.getInvitadoEstadoGuardiaTrueByIdResidente(localStorage.getItem("idResidente")).subscribe((res: any)=> {
       console.log(res);
+      
       this.arrayInvitados = res;
+       
     })
     
   }
 
-  eliminarInvitadoDeLista(invitado: Invitado){
+  editarInvitado(invitado: Invitado){
    
-    //console.log(invitado.uid)
-    console.log('se va a cambiar el estdo del invitado: ', invitado.id)
-    this.servicioInvitados.updateEstoInvitado(invitado.id, false, localStorage.getItem("idResidente"))
-   
+    console.log(invitado.id)
+    if(invitado.estado == true){
+      this.alertQuitarAcceso(invitado.id);
+    }else{
+      this.alertPermitirAcceso(invitado.id);
+    }
+
+    
   
   }
+
+  async alertQuitarAcceso(idInvitado: string) {
+    const alert = await this.alert.create({
+      header: 'Invitado está por salir',
+      subHeader: '¿Seguro qué deseas realizar esta acción?',
+      //message: 'Estás por ingresar al club',
+      buttons: [{
+        text: "Aceptar",
+        handler: (blah) => {
+          this.servicioInvitados.updateEstoAcceso(idInvitado, false, localStorage.getItem("idResidente"));
+          this.servicioInvitados.updateEstosInvitado(idInvitado,false, localStorage.getItem("idResidente"))
+        }
+      },{
+        text: "Cancelar",
+        handler: (blah) => {
+
+        }
+      }]
+    });
+
+    await alert.present();
+  }
+
+  async alertPermitirAcceso(idInvitado: string) {
+    const alert = await this.alert.create({
+      header: 'Invitado nuevo va a ingresar',
+      subHeader: '¿Seguro qué deseas realizar esta acción?',
+      //message: 'Estás por ingresar al club',
+      buttons: [{
+        text: "Aceptar",
+        handler: (blah) => {
+          this.servicioInvitados.updateEstoAcceso(idInvitado, true, localStorage.getItem("idResidente"));
+          this.servicioInvitados.updateEstoInvitado(idInvitado, false, localStorage.getItem("idResidente"));
+        }
+      },{
+        text: "Cancelar",
+        handler: (blah) => {
+
+        }
+      }]
+    });
+
+    await alert.present();
+  }
+  
 
 }

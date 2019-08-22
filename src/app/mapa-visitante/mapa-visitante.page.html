@@ -1,10 +1,12 @@
 
 <ion-header>
     <ion-toolbar color="primary">
-       
-      <div class="plusClass" slot="end">
-        <ion-icon name="menu" expand="icon-only" color="light" (click)="presentActionSheet()"> </ion-icon>
-      </div>
+        <ion-buttons>
+            <ion-button>
+                <ion-back-button defaultHref="/guardia"></ion-back-button>
+            </ion-button>
+          </ion-buttons>
+      
        
       <ion-title ([ngModel])="name" color="light">Urbanización Vicrieel</ion-title>
     </ion-toolbar>
@@ -16,14 +18,18 @@
 
     <div class="club"><button (click)="ingresarClub()" class="ingresarAreas"></button></div>
     <div class="Parque"><button (click)="ingresarParque()" class="ingresarAreas"></button></div>
-    <div class="Complejo"><button (click)="ingresarComplejo()" class="ingresarAreas"></button></div>
+    <img class="Complejo" (click)="ingresarComplejo()"  src="../../assets/images/iconoParque.png"/>
+    <img class="Parque" (click)="ingresarParque()"  src="../../assets/images/iconoGym.png"/>
+    <img class="club" (click)="ingresarClub()"  src="../../assets/images/iconoPiscina.png"/> 
 
     <!-- QR Club -->
     <div id="mostrarQRClub" *ngIf= "estadoQRClub == true">
         <br>
       <h1>QR Club</h1>
       <br>
-      <img src="../../assets/images/chatIcon.png" alt="Codigo QR">
+      <img src="../../assets/images/clubQr.png" style="width: 140px" alt="Codigo QR">
+      <br>
+      <ion-button color="secondary" (click)="ocultarQr()">Ok</ion-button>
     </div>
 
     <!-- QR Complejo -->
@@ -31,7 +37,9 @@
         <br>
       <h1>QR Complejo</h1>
       <br>
-      <img src="../../assets/images/chatIcon.png" alt="Codigo QR">
+      <img src="../../assets/images/parqueQr.png" style="width: 140px" alt="Codigo QR">
+      <br>
+      <ion-button color="secondary" (click)="ocultarQr()">Ok</ion-button>
     </div>
 
       <!-- QR Parque -->
@@ -39,7 +47,9 @@
         <br>
       <h1>QR Parque</h1>
       <br>
-      <img src="../../assets/images/chatIcon.png" alt="Codigo QR">
+      <img src="../../assets/images/gymQr.png" style="width: 140px" alt="Codigo QR">
+      <br>
+      <ion-button color="secondary" (click)="ocultarQr()">Ok</ion-button>
     </div>
 
   </div>

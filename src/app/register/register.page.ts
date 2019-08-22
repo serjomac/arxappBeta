@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../servicios/auth.service';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -9,15 +10,15 @@ import { AngularFirestore } from '@angular/fire/firestore';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  public seleccion: string;
-  public name: string;
-  public email: string;
-  public password: string;
-  public rolSeleccionado: string;
+  public seleccion: string = "";
+  public name: string = "";
+  public email: string = "";
+  public password: string = "";
+  public rolSeleccionado: string = "";
   public usuarioEnSesion: any;
   public username: string;
   public usurioExiste: boolean=false
-  constructor(public auth: AuthService, public router: Router, public dataBase: AngularFirestore) { }
+  constructor(public auth: AuthService, public router: Router, public dataBase: AngularFirestore, private alert: AlertController) { }
 
   ngOnInit() {
     console.log(this.seleccion);
@@ -25,24 +26,31 @@ export class RegisterPage implements OnInit {
 
   onSubmitRegister(){
     
-    if(this.rolSeleccionado == ''){
-      alert('Debe seleccionar un tipo de usuario');
-    }else{
+    
       //debugger
     
        
        
+      if(this.email != "" && this.password != "" && this.rolSeleccionado != "" && this.username != ""){
        
         console.log(this.usurioExiste)
         if(!this.usurioExiste){
-       
+          
           this.auth.register(this.email, this.password, this.name, this.rolSeleccionado, this.username).then( auth => {
-          this.router.navigate(['tabs/home']);
-             
+           
+            if(this.rolSeleccionado == "residente"){
+              this.router.navigate(['tabs/home']);
+            }else if(this.rolSeleccionado == "visitante"){
+              this.router.navigate(["/tutorial"])
+            }else {
+              this.router.navigate(["/guardia"])
+            }
+          
            
             //this.router.navigate(['tabs/home'])
           }).catch(err => console.log(err))
         }
+        
       
 
      // console.log(this.usurioExiste)
@@ -50,10 +58,25 @@ export class RegisterPage implements OnInit {
       
 
       
+    }else{
+      this.alertCamposImcompletos();
     }
   }
 
+  async alertCamposImcompletos() {
+    const alert = await this.alert.create({
+      header: 'Error',
+      subHeader: 'Ocurrio un error en el registro',
+      message: "Debe llenar todos los campos", 
+      buttons: [{
+        text: "Aceptar",
+        handler: (blah) => {
+        }
+      }]
+    });
 
+    await alert.present();
+  }
 
   existeUsuario = function(username){
 

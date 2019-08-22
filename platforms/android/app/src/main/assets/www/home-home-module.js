@@ -57,7 +57,7 @@ var HomePageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<ion-header>\n  <ion-toolbar color=\"primary\">\n     <ion-buttons slot=\"start\">\n       <ion-menu-button></ion-menu-button>\n     </ion-buttons>\n     \n     <div class=\"plusClass\" slot=\"end\">\n      <ion-icon name=\"menu\" expand=\"icon-only\" color=\"light\" (click)=\"presentActionSheet()\"> </ion-icon>\n    </div>\n     \n    <ion-title ([ngModel])=\"name\" color=\"light\">\n      {{name}}\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n\n<ion-card >\n    <ion-card-header>\n        <img class=\"icon\" src=\"../../assets/images/avatar.svg\">\n        <ion-card-title class=\"ion-bold ion-text-center marginTop\">{{name}}</ion-card-title>\n        <ion-card-subtitle class=\"ion-text-center marginTop marginBottom\"> Mz O villa 1</ion-card-subtitle>\n\n    </ion-card-header>\n    \n    \n</ion-card>\n\n<ion-card >\n\n  \n      <ion-card-title class=\"ion-bold ion-text-center marginTop\">Lista de invitados actual</ion-card-title>\n      <div class=\"classVisitas marginTop\">\n        <h1 color=\"primary\" ([ngModel])=\"numeroInvitadosTotal\">{{numeroInvitadosTotal}}</h1>\n        <ion-icon routerLink=\"listainvitados\" class=\"bigger\" src=\"assets/icon/visitante.svg\"></ion-icon>\n        \n      </div>\n      <ion-card-subtitle class=\"marginTop marginBottom\">Ingresados 3</ion-card-subtitle>\n  \n  \n  \n</ion-card>\n    \n    \n</ion-content>\n\n\n\n"
+module.exports = "\n<ion-header>\n  <ion-toolbar color=\"primary\">\n     <ion-buttons slot=\"start\">\n       <ion-menu-button></ion-menu-button>\n     </ion-buttons>\n     \n     <div class=\"plusClass\" slot=\"end\">\n      <ion-icon name=\"menu\" expand=\"icon-only\" color=\"light\" (click)=\"presentActionSheet()\"> </ion-icon>\n    </div>\n     \n    <ion-title ([ngModel])=\"name\" color=\"light\">\n      {{name}}\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n\n<ion-card >\n    <ion-card-header>\n        <img class=\"icon\" src=\"../../assets/images/avatar.svg\">\n        <ion-card-title class=\"ion-bold ion-text-center marginTop\">{{name}}</ion-card-title>\n        <ion-card-subtitle class=\"ion-text-center marginTop marginBottom\"> Mz {{direccionUsuario.manzana}} villa {{direccionUsuario.villa}}</ion-card-subtitle>\n\n    </ion-card-header>\n    \n    \n</ion-card>\n\n<ion-card >\n\n  \n      <ion-card-title class=\"ion-bold ion-text-center marginTop\">Lista de invitados actual</ion-card-title>\n      <div class=\"classVisitas marginTop\">\n        <h1 color=\"primary\" ([ngModel])=\"numeroInvitadosTotal\">{{numeroInvitadosTotal}}</h1>\n        <ion-icon routerLink=\"listainvitados\" class=\"bigger\" src=\"assets/icon/visitante.svg\"></ion-icon>\n        \n      </div>\n      <ion-card-subtitle class=\"marginTop marginBottom\">Ingresados 3</ion-card-subtitle>\n  \n  \n  \n</ion-card>\n    \n    \n</ion-content>\n\n\n\n"
 
 /***/ }),
 
@@ -90,6 +90,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/auth/index.js");
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _servicios_direcciones_direcciones_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../servicios/direcciones/direcciones.service */ "./src/app/servicios/direcciones/direcciones.service.ts");
+/* harmony import */ var _servicios_InvitadoServiceService__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../servicios/InvitadoServiceService */ "./src/app/servicios/InvitadoServiceService.ts");
+
+
 
 
 
@@ -99,28 +103,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var HomePage = /** @class */ (function () {
-    function HomePage(router, actionSheetController, auth, autFb, dataBase) {
+    function HomePage(router, actionSheetController, auth, autFb, dataBase, servicioDireccion, servicioInvittado) {
         var _this = this;
         this.router = router;
         this.actionSheetController = actionSheetController;
         this.auth = auth;
         this.autFb = autFb;
         this.dataBase = dataBase;
+        this.servicioDireccion = servicioDireccion;
+        this.servicioInvittado = servicioInvittado;
         this.numeroInvitadosTotal = '0';
         var contador = 0;
         this.name = autFb.auth.currentUser.displayName;
-        var listaInvitados = this.dataBase.collection('invitados').valueChanges();
-        listaInvitados.forEach(function (invitado) {
-            invitado.forEach(function (campoInvitado) {
-                //console.log(campoInvitado['id_usuarioVisitante'])
-                if (campoInvitado['id_usuarioResidente'] == _this.autFb.auth.currentUser.uid) {
-                    contador++;
-                    _this.numeroInvitadosTotal = "" + contador;
-                }
-            });
-            contador = 0;
+        this.servicioInvittado.getInvitadoEstadoTrueByIdResidente(this.autFb.auth.currentUser.uid).subscribe(function (res) {
+            _this.numeroInvitadosTotal = "" + res.length;
         });
     }
+    HomePage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.servicioDireccion.getDireccionByIdResidente(this.autFb.auth.currentUser.uid).subscribe(function (res) {
+            _this.direccionUsuario = res[0];
+        });
+    };
     HomePage.prototype.presentActionSheet = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var actionSheet;
@@ -163,7 +167,7 @@ var HomePage = /** @class */ (function () {
             template: __webpack_require__(/*! ./home.page.html */ "./src/app/home/home.page.html"),
             styles: [__webpack_require__(/*! ./home.page.scss */ "./src/app/home/home.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"], _servicios_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"], _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__["AngularFirestore"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"], _servicios_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"], _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__["AngularFirestore"], _servicios_direcciones_direcciones_service__WEBPACK_IMPORTED_MODULE_8__["DireccionesService"], _servicios_InvitadoServiceService__WEBPACK_IMPORTED_MODULE_9__["InvitadoServiceService"]])
     ], HomePage);
     return HomePage;
 }());

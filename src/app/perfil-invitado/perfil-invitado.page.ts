@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { NavController, ActionSheetController } from '@ionic/angular';
+import { NavController, ActionSheetController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ListaInvitadosPage, UsuarioInvitado } from '../lista-invitados/lista-invitados.page';
 import { MenuController } from '@ionic/angular';
@@ -13,6 +13,8 @@ import { Usuario } from '../models/usuario'
 import { Invitado } from '../models/invitado'
 import { Socket } from 'ngx-socket-io';
 import { auth } from 'firebase';
+import { UsuariosService } from '../servicios/usuarios.service';
+import { InvitadoServiceService } from '../servicios/InvitadoServiceService';
 
 @Component({
   selector: 'app-perfil-invitado',
@@ -23,9 +25,11 @@ export class PerfilInvitadoPage implements OnInit {
   public mostrarNotificacion: boolean = false; 
   public name: string;
   public idInvitado: string;
-  public numVisitas: string = '0';
+  public numVisitas: number = 0;
   public notificaiones = [];
-  constructor(private router: Router, private actionSheetController: ActionSheetController, private auth: AuthService, private autFb: AngularFireAuth, private dataBase: AngularFirestore, public socketIO: Socket, public ngZone: NgZone) {
+  public invitacion_activa: boolean = false;
+  public estadoInvitado: boolean = false;
+  constructor(private router: Router, private actionSheetController: ActionSheetController, private auth: AuthService, private autFb: AngularFireAuth, private dataBase: AngularFirestore, public socketIO: Socket, public ngZone: NgZone, private usuarios: UsuariosService, private invitadoService: InvitadoServiceService, private alert: AlertController) {
     
     localStorage.setItem('objUsuarioEnSession', JSON.stringify(""));
     this.name = autFb.auth.currentUser.displayName;
@@ -37,9 +41,30 @@ export class PerfilInvitadoPage implements OnInit {
   }
  
   redirectIngresarCiudadela(){
-    this.router.navigate(["/perfil-ingresarurbanizacion"]);
+    if(this.estadoInvitado ){
+      this.router.navigate(["/mapa-visitante"]);
+    }else{
+      this.presentNoAcceso();
+    }
+    
   }
   
+  
+  async presentNoAcceso() {
+    const alert = await this.alert.create({
+      header: 'Acesso denegado',
+      subHeader: 'Aún no está dentro de la urbanización',
+      message: 'Debe tener el acceso en garita de Vicrieel.',
+      buttons: [{
+        text: "Aceptar",
+        handler: (blah) => {
+        }
+      }]
+    });
+
+    await alert.present();
+  }
+
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Opciones',
@@ -85,7 +110,7 @@ export class PerfilInvitadoPage implements OnInit {
           let objInvitado = campoInvitado as Invitado;
           localStorage.setItem('objInvitadoEnSession', JSON.stringify(objInvitado));
           contador ++;
-          this.numVisitas = ""+contador;
+          this.numVisitas = contador;
           return;
         }
       });
@@ -94,52 +119,28 @@ export class PerfilInvitadoPage implements OnInit {
   }
 
   ngOnInit() {
-    this.socketIO.connect()
-    this.getNoti().subscribe(noti => {
-      this.notificaiones = []
-      this.mostrarNotificacion = false;
-      this.notificaiones.push(noti)
-      localStorage.setItem("notificaciones", JSON.stringify(this.notificaiones));
-      
-      for (let i = 0; i < this.notificaiones.length; i++) {
-        //debugger
-        if(this.notificaiones[i].id_visitante != this.autFb.auth.currentUser.uid){
 
-          console.log("se enviaro pero no te pertenece la notificacion")
-        }else if(this.notificaiones[i].invitacion_activa == true){   
-          this.mostrarNotificacion = true;
-          console.log(this.notificaiones[i]);
-          break;
+    this.usuarios.getUsersRolInvitado(this.idInvitado).subscribe(res=> {
+      
+        let invitadoTmp: Usuario = res[0];
+        console.log(invitadoTmp.uid)
+        this.invitadoService.getInvitadoById(invitadoTmp["uid"]).subscribe(invitado => {
+          if(invitado.length>0){
+          console.log(invitado.length)
+          this.invitacion_activa = invitado[0].invitacion_activa;
+          this.numVisitas = invitado[0].numeroVisitas;
+          this.estadoInvitado = invitado[0].estado;
         }
-        
-      }
+        })
+
       
     })
+
+   
+
   }
 
 
-  getNoti(){
-    let observable = new Observable(observer => {
-      this.socketIO.on("notificacion", data => {
-        observer.next(data);
-      })
-    })
-    return observable;
-  }
-  connect(){
-    let isAvailable: boolean;
-    let isWaitng: boolean
-    this.socketIO.on("result", (result)=>{
-
-      this.ngZone.run(() => {
-        isAvailable=true;
-        isWaitng=false;
-        let data:any=result
-        console.log("result")
-        console.log(result)
-         
-      });
-    })
-  }
+  
 
 }

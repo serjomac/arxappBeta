@@ -28,28 +28,31 @@
     
     
 </ion-card>
-<ion-list *ngIf = "direccionDelUsuario">
+<div *ngIf = "direccionDelUsuario">
+<ion-list >
 <ion-item >
 
+
     <label for="">Manzana: </label>
-    <ion-input [(ngModel)]= "manzana" type="text" value="{{direccionDelUsuario.manzana}}" ></ion-input>
+    <ion-input  [(ngModel)] = "manzana"  type="text" #name="ngModel"></ion-input>
   
 </ion-item>
 
 <ion-item>
 
   <label for="">Villa: </label>
-  <ion-input [(ngModel)]= "villa" type="text" value="{{direccionDelUsuario.villa}}" ></ion-input>
+  <ion-input [(ngModel)] = "villa"  type="text"  #name="ngModel" ></ion-input>
 
 </ion-item>
 
 <ion-item>
 
   <label for="">Referencia: </label>
-  <ion-input [(ngModel)]= "referenncia" type="text" value="{{direccionDelUsuario.referencia}}" ></ion-input>
+  <ion-input [(ngModel)] = "referencia" type="text"  #name="ngModel" ></ion-input>
 
 </ion-item>
 </ion-list>
+</div>
 <div>
   <ion-button color="primary" (click)="actualizarDatos()"> actualizar </ion-button>
 </div>

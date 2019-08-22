@@ -15,7 +15,7 @@
 
 <ion-content>
 
-  <ion-card >
+  <ion-card>
       <ion-card-header>
           <img class="icon" src="../../assets/images/avatar.svg">
           <ion-card-title class="ion-bold ion-text-center marginTop">{{ name }}</ion-card-title>
@@ -24,17 +24,19 @@
         
   </ion-card>
 
-  <ion-card >
+  <ion-card>
     
       <ion-card-title class="ion-bold ion-text-center marginTop"></ion-card-title>
       <div class="classVisitas marginTop">
         <h1 class="ion-text-center" color="primary" ([ngModel])="numVisitas">{{ numVisitas }} visitas a Vicrieel</h1>
-        <ion-icon routerLink="listainvitados" class="bigger" src="assets/icon/visitante.svg"></ion-icon>        
+               
       </div>
   </ion-card>
-<div *ngFor="let notificaiones of notificaiones">
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf= "notificaiones.estado == true">
-    <ion-fab-button (click)="redirectIngresarCiudadela()">{{mostrarNotificacion}}</ion-fab-button>    
+<div ([ngModel])="invitacion_activa">
+  <ion-fab vertical="bottom" style="display:grid" horizontal="end" slot="fixed" *ngIf= "invitacion_activa || estadoInvitado">
+  
+    <ion-label>Invitación nueva</ion-label>
+    <img  class="icon_invitacion" (click)="redirectIngresarCiudadela()" src="../../assets/images/wedding-invitation.png">  
   </ion-fab>
 </div>
 </ion-content>

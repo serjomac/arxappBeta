@@ -24,6 +24,9 @@ export class PerfilPage implements OnInit {
       console.log(res[0])
       this.direccionDelUsuario = res[0];
       this.arryDir = res;
+      this.manzana = this.direccionDelUsuario[0].manzana;
+      this.villa = this.direccionDelUsuario[0].villa;
+      this.referenncia = this.direccionDelUsuario[0].referencia;
       console.log("dsadsadasd", this.arryDir[0])
     })
 

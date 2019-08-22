@@ -18,6 +18,7 @@ export class LoginPage implements OnInit {
   constructor(private auth: AuthService, public router: Router, private db: AngularFirestore) { }
 
   ngOnInit() {
+    localStorage.setItem("currentUser","");
   }
   
   onSubmitLogin(){
@@ -27,7 +28,8 @@ export class LoginPage implements OnInit {
         this.usuarioEnSesion = this.db.collection('users').doc(res['user'].uid).valueChanges();
         //console.log(this.usuarioEnSesion)
         this.usuarioEnSesion.forEach(data => {
-          //console.log(data)
+          console.log("======>>", data)
+          localStorage.setItem("currentUser", JSON.stringify(data));
           console.log(data['rol']);
           if(data['rol'] == "residente"){
             this.router.navigate(['tabs/home']);

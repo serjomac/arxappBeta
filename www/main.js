@@ -839,7 +839,6 @@ var map = {
 	],
 	"../home/home.module": [
 		"./src/app/home/home.module.ts",
-		"common",
 		"home-home-module"
 	],
 	"../lista-guardia/lista-guardia.module": [
@@ -852,12 +851,15 @@ var map = {
 	],
 	"../perfil/perfil.module": [
 		"./src/app/perfil/perfil.module.ts",
-		"common",
 		"perfil-perfil-module"
 	],
 	"./login/login.module": [
 		"./src/app/login/login.module.ts",
 		"login-login-module"
+	],
+	"./mapa-visitante/mapa-visitante.module": [
+		"./src/app/mapa-visitante/mapa-visitante.module.ts",
+		"mapa-visitante-mapa-visitante-module"
 	],
 	"./perfil-ingresarurbanizacion/perfil-ingresarurbanizacion.module": [
 		"./src/app/perfil-ingresarurbanizacion/perfil-ingresarurbanizacion.module.ts",
@@ -885,7 +887,7 @@ function webpackAsyncContext(req) {
 			throw e;
 		});
 	}
-	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
+	return __webpack_require__.e(ids[1]).then(function() {
 		var id = ids[0];
 		return __webpack_require__(id);
 	});
@@ -912,12 +914,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _lista_guardia_lista_guardia_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lista-guardia/lista-guardia.page */ "./src/app/lista-guardia/lista-guardia.page.ts");
-/* harmony import */ var _guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./guards/auth.guard */ "./src/app/guards/auth.guard.ts");
-/* harmony import */ var _guards_no_login_guard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./guards/no-login.guard */ "./src/app/guards/no-login.guard.ts");
-/* harmony import */ var _componets_tutorial_tutorial_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./componets/tutorial/tutorial.component */ "./src/app/componets/tutorial/tutorial.component.ts");
-/* harmony import */ var _lista_invitados_guardia_lista_invitados_guardia_page__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./lista-invitados-guardia/lista-invitados-guardia.page */ "./src/app/lista-invitados-guardia/lista-invitados-guardia.page.ts");
-/* harmony import */ var _componets_auth_ingresar_ciudadela_auth_ingresar_ciudadela_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./componets/auth-ingresar-ciudadela/auth-ingresar-ciudadela.component */ "./src/app/componets/auth-ingresar-ciudadela/auth-ingresar-ciudadela.component.ts");
-
+/* harmony import */ var _guards_no_login_guard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./guards/no-login.guard */ "./src/app/guards/no-login.guard.ts");
+/* harmony import */ var _componets_tutorial_tutorial_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./componets/tutorial/tutorial.component */ "./src/app/componets/tutorial/tutorial.component.ts");
+/* harmony import */ var _lista_invitados_guardia_lista_invitados_guardia_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lista-invitados-guardia/lista-invitados-guardia.page */ "./src/app/lista-invitados-guardia/lista-invitados-guardia.page.ts");
+/* harmony import */ var _componets_auth_ingresar_ciudadela_auth_ingresar_ciudadela_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./componets/auth-ingresar-ciudadela/auth-ingresar-ciudadela.component */ "./src/app/componets/auth-ingresar-ciudadela/auth-ingresar-ciudadela.component.ts");
 
 
 
@@ -930,14 +930,15 @@ var routes = [
     { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
     //{ path: 'home', loadChildren: './home/home.module#HomePageModule' },
     //{ path: 'tabs/lista-invitados', component:ListaInvitadosPage},
-    { path: 'login', loadChildren: './login/login.module#LoginPageModule', canActivate: [_guards_no_login_guard__WEBPACK_IMPORTED_MODULE_5__["NoLoginGuard"]] },
-    { path: 'register', loadChildren: './register/register.module#RegisterPageModule', canActivate: [_guards_no_login_guard__WEBPACK_IMPORTED_MODULE_5__["NoLoginGuard"]] },
-    { path: 'tutorial', component: _componets_tutorial_tutorial_component__WEBPACK_IMPORTED_MODULE_6__["TutorialComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]] },
+    { path: 'login', loadChildren: './login/login.module#LoginPageModule', canActivate: [_guards_no_login_guard__WEBPACK_IMPORTED_MODULE_4__["NoLoginGuard"]] },
+    { path: 'register', loadChildren: './register/register.module#RegisterPageModule', canActivate: [_guards_no_login_guard__WEBPACK_IMPORTED_MODULE_4__["NoLoginGuard"]] },
+    { path: 'tutorial', component: _componets_tutorial_tutorial_component__WEBPACK_IMPORTED_MODULE_5__["TutorialComponent"] },
     { path: 'guardia', component: _lista_guardia_lista_guardia_page__WEBPACK_IMPORTED_MODULE_3__["ListaGuardiaPage"] },
-    { path: 'lista-invitados-guardia', component: _lista_invitados_guardia_lista_invitados_guardia_page__WEBPACK_IMPORTED_MODULE_7__["ListaInvitadosGuardiaPage"] },
+    { path: 'lista-invitados-guardia', component: _lista_invitados_guardia_lista_invitados_guardia_page__WEBPACK_IMPORTED_MODULE_6__["ListaInvitadosGuardiaPage"] },
     { path: 'perfil-invitado', loadChildren: './perfil-invitado/perfil-invitado.module#PerfilInvitadoPageModule' },
     { path: 'perfil-ingresarurbanizacion', loadChildren: './perfil-ingresarurbanizacion/perfil-ingresarurbanizacion.module#PerfilIngresarurbanizacionPageModule' },
-    { path: 'auth-ingresar-ciudadela', component: _componets_auth_ingresar_ciudadela_auth_ingresar_ciudadela_component__WEBPACK_IMPORTED_MODULE_8__["AuthIngresarCiudadelaComponent"] }
+    { path: 'auth-ingresar-ciudadela', component: _componets_auth_ingresar_ciudadela_auth_ingresar_ciudadela_component__WEBPACK_IMPORTED_MODULE_7__["AuthIngresarCiudadelaComponent"] },
+    { path: 'mapa-visitante', loadChildren: './mapa-visitante/mapa-visitante.module#MapaVisitantePageModule' }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -1229,13 +1230,47 @@ var AddInvitadoComponent = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.alert.create({
                             header: 'Error',
                             subHeader: 'Usuario no valido',
-                            message: 'El usuario ingresado no existe',
+                            message: 'El usuario ingresado no existe o no es visitante',
                             buttons: [{
                                     text: "Aceptar",
                                     handler: function (blah) {
                                         _this.visitanteIngresado = '';
                                     }
                                 }]
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    AddInvitadoComponent.prototype.alterAgregoCorrecto = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alert.create({
+                            header: 'Perfecto',
+                            subHeader: 'El usuario se agregó correctamente',
+                            message: '¿Desea agregar otro usuario?',
+                            buttons: [{
+                                    text: "Aceptar",
+                                    handler: function (blah) {
+                                        _this.visitanteIngresado = '';
+                                    }
+                                },
+                                {
+                                    text: "Cancelar",
+                                    handler: function (blah) {
+                                        _this.closeChat();
+                                    }
+                                }
+                            ]
                         })];
                     case 1:
                         alert = _a.sent();
@@ -1289,7 +1324,7 @@ var AddInvitadoComponent = /** @class */ (function () {
                                     handler: function (blah) {
                                         _this.visitanteIngresado = '';
                                     }
-                                }]
+                                },]
                         })];
                     case 1:
                         alert = _a.sent();
@@ -1337,7 +1372,8 @@ var AddInvitadoComponent = /** @class */ (function () {
                 }
                 else if (existeinvitadoPeroNoEstaEnLista) {
                     console.log("se va a actualizar el estado del invitado: ", invitadoTmp);
-                    _this.servicioInvitado.updateEstoInvitado(invitadoTmp.id, true, _this.auth.auth.currentUser.uid);
+                    _this.servicioInvitado.updateEstoInvitado(_this.auth.auth.currentUser.uid, true, _this.auth.auth.currentUser.uid);
+                    _this.servicioInvitado.updateEstadoGuardiaInvitado(invitadoTmp.id, true, _this.auth.auth.currentUser.uid);
                     _this.visitanteIngresado = "";
                     lecturaDeInvitados_1.unsubscribe();
                 }
@@ -1346,7 +1382,10 @@ var AddInvitadoComponent = /** @class */ (function () {
                         console.log("se agregara un invitado a su lista: ", res);
                         if (res.length > 0) {
                             var invitadoNuevo = {
+                                id: res[0]['uid'],
+                                estado_guardia: true,
                                 estado: false,
+                                numeroVisitas: 0,
                                 invitacion_activa: true,
                                 fecha_ingreso: null,
                                 fecha_salida: null,
@@ -1355,7 +1394,9 @@ var AddInvitadoComponent = /** @class */ (function () {
                                 lastName: res[0]["lastName"],
                                 username: res[0]["username"]
                             };
+                            console.log(invitadoNuevo);
                             _this.servicioInvitado.addInvitado(invitadoNuevo);
+                            _this.alterAgregoCorrecto();
                             _this.visitanteIngresado = "";
                             leerUsuarioInvitado_1.unsubscribe();
                             lecturaDeInvitados_1.unsubscribe();
@@ -1535,7 +1576,7 @@ var AddInvitadoComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar color=\"primary-contrast\">\n     <ion-buttons slot=\"start\">\n       <ion-menu-button></ion-menu-button>\n     </ion-buttons>\n     \n     <div class=\"plusClass\" slot=\"end\">\n      <ion-icon name=\"menu\" expand=\"icon-only\" color=\"#fff\" (click)=\"presentActionSheet()\"> </ion-icon>\n    </div>\n     \n    <ion-title color=\"primary\">\n      No tiene autorización\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content color=\"primary\">\n\n<ion-card color=\"primary-contrast\">\n      <ion-card-content color=\"primary-contrast\">\n        <label>Aún no tiene autorización para entrar</label>\n        <div class=\"displayButton\">\n            <ion-button color=\"primary-contrast\" (click)=\"closeChat()\"> OK </ion-button>\n        </div>\n      </ion-card-content>\n</ion-card>\n\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar color=\"primary-contrast\">\n     <ion-buttons slot=\"start\">\n       <ion-menu-button></ion-menu-button>\n     </ion-buttons>\n     \n     <div class=\"plusClass\" slot=\"end\">\n      <ion-icon name=\"menu\" expand=\"icon-only\" color=\"#fff\" (click)=\"presentActionSheet()\"> </ion-icon>\n    </div>\n     \n    <ion-title color=\"primary\">\n      Autorización denegada\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content color=\"primary\">\n\n<ion-card color=\"primary-contrast\">\n      <ion-card-content color=\"primary-contrast\">\n        <label>Aún no tiene autorización para ver el mapa. Por favor, espere la autorización del guardia.</label>\n\n        <div class=\"displayButton\">\n            <ion-button color=\"primary-contrast\" (click)=\"closeChat()\"> OK </ion-button>\n        </div>\n      </ion-card-content>\n</ion-card>\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -1895,63 +1936,6 @@ var TutorialComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/guards/auth.guard.ts":
-/*!**************************************!*\
-  !*** ./src/app/guards/auth.guard.ts ***!
-  \**************************************/
-/*! exports provided: AuthGuard */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return AuthGuard; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/auth/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! util */ "./node_modules/util/util.js");
-/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
-
-
-
-
-
-
-
-var AuthGuard = /** @class */ (function () {
-    function AuthGuard(AFauth, router, datBase) {
-        this.AFauth = AFauth;
-        this.router = router;
-        this.datBase = datBase;
-        this.estado = true;
-    }
-    AuthGuard.prototype.canActivate = function (next, state) {
-        var _this = this;
-        return this.AFauth.authState.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (auth) {
-            if (Object(util__WEBPACK_IMPORTED_MODULE_4__["isNullOrUndefined"])(auth)) {
-                _this.router.navigate(['/login']);
-                return false;
-            }
-            else {
-                return true;
-            }
-        }));
-    };
-    AuthGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__["AngularFireAuth"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__["AngularFirestore"]])
-    ], AuthGuard);
-    return AuthGuard;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/guards/no-login.guard.ts":
 /*!******************************************!*\
   !*** ./src/app/guards/no-login.guard.ts ***!
@@ -1970,6 +1954,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var util__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var _servicios_usuarios_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../servicios/usuarios.service */ "./src/app/servicios/usuarios.service.ts");
+
 
 
 
@@ -1978,10 +1964,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var NoLoginGuard = /** @class */ (function () {
-    function NoLoginGuard(AFauth, router, dataBase) {
+    function NoLoginGuard(AFauth, router, dataBase, servicioUsuario) {
         this.AFauth = AFauth;
         this.router = router;
         this.dataBase = dataBase;
+        this.servicioUsuario = servicioUsuario;
     }
     NoLoginGuard.prototype.canActivate = function (next, state) {
         var _this = this;
@@ -1990,8 +1977,20 @@ var NoLoginGuard = /** @class */ (function () {
                 return true;
             }
             else {
-                _this.router.navigate(['/tabs/home']);
-                return false;
+                var currentUser = JSON.parse(localStorage.getItem("currentUser"));
+                if (currentUser['rol'] == "residente") {
+                    console.log("===============>>>>>>>>>", currentUser['rol']);
+                    _this.router.navigate(['']);
+                    return false;
+                }
+                else if (currentUser['rol'] == "visitante") {
+                    _this.router.navigate(['/tutorial']);
+                    return false;
+                }
+                else {
+                    _this.router.navigate(['/guardia']);
+                    return false;
+                }
             }
         }));
     };
@@ -1999,7 +1998,7 @@ var NoLoginGuard = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__["AngularFireAuth"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__["AngularFirestore"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__["AngularFireAuth"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_6__["AngularFirestore"], _servicios_usuarios_service__WEBPACK_IMPORTED_MODULE_7__["UsuariosService"]])
     ], NoLoginGuard);
     return NoLoginGuard;
 }());
@@ -2015,7 +2014,7 @@ var NoLoginGuard = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<ion-header>\n    <ion-toolbar>\n        \n      <ion-title>Lista de Residentes</ion-title>\n    </ion-toolbar>\n</ion-header>\n  \n  <ion-content>\n  \n    <ion-card *ngFor= \"let residente of listaDelGuardia\">\n      <ion-card-content (click)=\"listIncitados(residente)\">\n        <ion-card-subtitle></ion-card-subtitle>\n        <ion-item>\n          <div class=\"d-block\">\n            <h3>{{residente.name}}</h3>\n            <label for=\"\">{{residente.rol}}</label>\n            <label for=\"\">{{residente.uid}}</label>\n          </div>\n        </ion-item>\n        <ion-label>{{residente.name}}</ion-label>\n        <ion-button color=\"ligth\" float-right>\n            <ion-icon color=\"danger\" name=\"close\"></ion-icon>   \n          </ion-button>\n      </ion-card-content>\n    </ion-card>\n   \n  \n    \n  \n    <ion-infinite-scroll threshold=\"100px\" (ionInfinite)=\"loadData($event)\">\n      <ion-infinite-scroll-content\n        loadingSpinner=\"bubbles\"\n        loadingText=\"Loading more data...\">\n      </ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n  </ion-content>\n  "
+module.exports = "\n\n<ion-header>\n    <ion-toolbar>\n        \n      <ion-title>Lista de Residentes</ion-title>\n\n      <div class=\"plusClass\" slot=\"end\">\n          <ion-icon name=\"menu\" expand=\"icon-only\" color=\"light\" (click)=\"presentActionSheet()\"> </ion-icon>\n        </div>\n    </ion-toolbar>\n\n    \n</ion-header>\n  \n  <ion-content>\n  \n   \n  \n    <ion-grid class=\"ion-padding\" *ngFor= \"let residente of listaDelGuardia\">\n        <ion-row (click)=\"listIncitados(residente)\" class=\"align-items-center\" class=\"ion-justify-content-center ion-align-self-stretch\" style=\"box-shadow: 2px 2px 4px 1px rgba(10,20,32,0.1)\">\n          <ion-col size=\"3\" class=\"\">\n              <img class=\"icon\" src=\"../../assets/images/avatar.svg\" alt=\"\">\n          </ion-col>\n    \n          <ion-col class=\"ion-align-items-end\" size=\"4\">\n              <h4>{{residente.name}}</h4>\n          </ion-col>\n    \n        </ion-row>\n      </ion-grid>\n    \n  \n    <ion-infinite-scroll threshold=\"100px\" (ionInfinite)=\"loadData($event)\">\n      <ion-infinite-scroll-content\n        loadingSpinner=\"bubbles\"\n        loadingText=\"Loading more data...\">\n      </ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n  </ion-content>\n  "
 
 /***/ }),
 
@@ -2026,7 +2025,7 @@ module.exports = "\n\n<ion-header>\n    <ion-toolbar>\n        \n      <ion-titl
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2xpc3RhLWd1YXJkaWEvbGlzdGEtZ3VhcmRpYS5wYWdlLnNjc3MifQ== */"
+module.exports = ".icon {\n  height: 15vw;\n  width: 15vw;\n  border-radius: 50%;\n  box-shadow: 0 0 5px #3d3d3d; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9qb25hdGhhbm1hY2lhcy9Eb2N1bWVudHMvSm9uYXRoYW4vRXNwb2wvaW50ZWdyYWRvcmEvYXJ4YXBwQmV0YS9zcmMvYXBwL2xpc3RhLWd1YXJkaWEvbGlzdGEtZ3VhcmRpYS5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFZO0VBQ1osV0FBVztFQUNYLGtCQUFrQjtFQUNsQiwyQkFBbUMsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2xpc3RhLWd1YXJkaWEvbGlzdGEtZ3VhcmRpYS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaWNvbiB7XG4gICAgaGVpZ2h0OiAxNXZ3OyBcbiAgICB3aWR0aDogMTV2dzsgXG4gICAgYm9yZGVyLXJhZGl1czogNTAlO1xuICAgIGJveC1zaGFkb3c6IDAgMCA1cHggcmdiKDYxLCA2MSwgNjEpO1xuICAgXG59Il19 */"
 
 /***/ }),
 
@@ -2047,6 +2046,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/auth/index.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _servicios_usuarios_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../servicios/usuarios.service */ "./src/app/servicios/usuarios.service.ts");
+/* harmony import */ var _servicios_auth_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../servicios/auth.service */ "./src/app/servicios/auth.service.ts");
+/* harmony import */ var _servicios_direcciones_direcciones_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../servicios/direcciones/direcciones.service */ "./src/app/servicios/direcciones/direcciones.service.ts");
+
+
 
 
 
@@ -2056,11 +2059,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ListaGuardiaPage = /** @class */ (function () {
-    function ListaGuardiaPage(dataBase, router, auth, servicioUsuario) {
+    function ListaGuardiaPage(dataBase, router, auth, servicioUsuario, actionSheetController, authService, direcciones) {
         this.dataBase = dataBase;
         this.router = router;
         this.auth = auth;
         this.servicioUsuario = servicioUsuario;
+        this.actionSheetController = actionSheetController;
+        this.authService = authService;
+        this.direcciones = direcciones;
+        this.arrayDirecciones = [];
         this.arrayInvitados = [];
         this.listaDelGuardia = [];
     }
@@ -2077,6 +2084,34 @@ var ListaGuardiaPage = /** @class */ (function () {
             }
         }, 500);
     };
+    ListaGuardiaPage.prototype.presentActionSheet = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var actionSheet;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.actionSheetController.create({
+                            header: 'Opciones',
+                            buttons: [{
+                                    text: 'Cerrar sesion',
+                                    role: 'destructive',
+                                    icon: 'log-out',
+                                    handler: function () {
+                                        _this.authService.logOut();
+                                    }
+                                }
+                            ]
+                        })];
+                    case 1:
+                        actionSheet = _a.sent();
+                        return [4 /*yield*/, actionSheet.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     ListaGuardiaPage.prototype.listIncitados = function (idResidente) {
         localStorage.setItem('idResidente', idResidente.uid);
         console.log(localStorage.getItem("idResidente"));
@@ -2091,7 +2126,16 @@ var ListaGuardiaPage = /** @class */ (function () {
         var _this = this;
         this.servicioUsuario.getAllUserResidentes().subscribe(function (res) {
             _this.listaDelGuardia = res;
-            console.log(_this.listaDelGuardia);
+            var _loop_1 = function (i) {
+                _this.direcciones.getDireccionByIdResidente(_this.listaDelGuardia[i].uid).subscribe(function (res) {
+                    //console.log(res[0])
+                    _this.arrayDirecciones.push(res[0]);
+                    console.log(_this.arrayDirecciones[i]);
+                });
+            };
+            for (var i = 0; i < _this.listaDelGuardia.length; i++) {
+                _loop_1(i);
+            }
         });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2104,7 +2148,7 @@ var ListaGuardiaPage = /** @class */ (function () {
             template: __webpack_require__(/*! ./lista-guardia.page.html */ "./src/app/lista-guardia/lista-guardia.page.html"),
             styles: [__webpack_require__(/*! ./lista-guardia.page.scss */ "./src/app/lista-guardia/lista-guardia.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__["AngularFirestore"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _angular_fire_auth__WEBPACK_IMPORTED_MODULE_4__["AngularFireAuth"], _servicios_usuarios_service__WEBPACK_IMPORTED_MODULE_6__["UsuariosService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__["AngularFirestore"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _angular_fire_auth__WEBPACK_IMPORTED_MODULE_4__["AngularFireAuth"], _servicios_usuarios_service__WEBPACK_IMPORTED_MODULE_6__["UsuariosService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"], _servicios_auth_service__WEBPACK_IMPORTED_MODULE_7__["AuthService"], _servicios_direcciones_direcciones_service__WEBPACK_IMPORTED_MODULE_8__["DireccionesService"]])
     ], ListaGuardiaPage);
     return ListaGuardiaPage;
 }());
@@ -2120,7 +2164,7 @@ var ListaGuardiaPage = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<ion-header>\n  <ion-toolbar>\n      <ion-buttons>\n        <ion-button>\n            <ion-back-button defaultHref=\"/guardia\"></ion-back-button>\n        </ion-button>\n      </ion-buttons>\n    <ion-title>Lista de Invitados</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card  *ngFor= \"let invitado of arrayInvitados\">\n    <ion-card-content>\n      <ion-card-subtitle>{{invitado.name}}</ion-card-subtitle>\n      <ion-label>{{invitado.username}}</ion-label>\n      <ion-button (click)=\"eliminarInvitadoDeLista(invitado)\" color=\"ligth\" float-right>\n          <ion-icon color=\"danger\" name=\"close\"></ion-icon>   \n        </ion-button>\n    </ion-card-content>\n  </ion-card>\n  \n  <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button (click)=\"addInvitado(arrayInvitados)\">\n      <ion-icon name=\"add\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n\n  \n\n  <ion-infinite-scroll threshold=\"100px\" (ionInfinite)=\"loadData($event)\">\n    <ion-infinite-scroll-content\n      loadingSpinner=\"bubbles\"\n      loadingText=\"Loading more data...\">\n    </ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>"
+module.exports = "\n\n<ion-header>\n  <ion-toolbar>\n      <ion-buttons>\n        <ion-button>\n            <ion-back-button defaultHref=\"/guardia\"></ion-back-button>\n        </ion-button>\n      </ion-buttons>\n    <ion-title>Lista de Invitados</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  \n  <ion-grid class=\"ion-padding\" *ngFor= \"let invitado of arrayInvitados\">\n      <ion-row class=\"align-items-center\" class=\"ion-justify-content-center ion-align-self-stretch\" style=\"box-shadow: 2px 2px 4px 1px rgba(10,20,32,0.1)\">\n        <ion-col size=\"3\" class=\"\">\n            <img class=\"icon\" src=\"../../assets/images/avatar.svg\" alt=\"\">\n        </ion-col>\n  \n        <ion-col class=\"ion-align-items-end\" size=\"4\">\n            <h6>{{invitado.name}}</h6>\n            <h6>Numero de visitas: {{invitado.numeroVisitas}}</h6>\n        </ion-col>\n\n        <ion-button (click)=\"editarInvitado(invitado)\" color=\"ligth\" float-right>\n            <ion-icon color=\"danger\" name=\"clipboard\"></ion-icon>   \n          </ion-button>\n  \n      </ion-row>\n    </ion-grid>\n\n\n  <ion-infinite-scroll threshold=\"100px\" (ionInfinite)=\"loadData($event)\">\n    <ion-infinite-scroll-content\n      loadingSpinner=\"bubbles\"\n      loadingText=\"Loading more data...\">\n    </ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>"
 
 /***/ }),
 
@@ -2163,12 +2207,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ListaInvitadosGuardiaPage = /** @class */ (function () {
-    function ListaInvitadosGuardiaPage(dataBase, modal, auth, servicioInvitados, servicioUsuario) {
+    function ListaInvitadosGuardiaPage(dataBase, modal, auth, servicioInvitados, servicioUsuario, alert) {
         this.dataBase = dataBase;
         this.modal = modal;
         this.auth = auth;
         this.servicioInvitados = servicioInvitados;
         this.servicioUsuario = servicioUsuario;
+        this.alert = alert;
         this.arrayInvitados = [];
         this.listaDeInvitados = [];
     }
@@ -2198,15 +2243,84 @@ var ListaInvitadosGuardiaPage = /** @class */ (function () {
     };
     ListaInvitadosGuardiaPage.prototype.ngOnInit = function () {
         var _this = this;
-        this.servicioInvitados.getInvitadoEstadoTrueByIdResidente(localStorage.getItem("idResidente")).subscribe(function (res) {
+        this.arrayInvitados = [];
+        this.servicioInvitados.getInvitadoEstadoGuardiaTrueByIdResidente(localStorage.getItem("idResidente")).subscribe(function (res) {
             console.log(res);
             _this.arrayInvitados = res;
         });
     };
-    ListaInvitadosGuardiaPage.prototype.eliminarInvitadoDeLista = function (invitado) {
-        //console.log(invitado.uid)
-        console.log('se va a cambiar el estdo del invitado: ', invitado.id);
-        this.servicioInvitados.updateEstoInvitado(invitado.id, false, localStorage.getItem("idResidente"));
+    ListaInvitadosGuardiaPage.prototype.editarInvitado = function (invitado) {
+        console.log(invitado.id);
+        if (invitado.estado == true) {
+            this.alertQuitarAcceso(invitado.id);
+        }
+        else {
+            this.alertPermitirAcceso(invitado.id);
+        }
+    };
+    ListaInvitadosGuardiaPage.prototype.alertQuitarAcceso = function (idInvitado) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alert.create({
+                            header: 'Invitado está por salir',
+                            subHeader: '¿Seguro qué deseas realizar esta acción?',
+                            //message: 'Estás por ingresar al club',
+                            buttons: [{
+                                    text: "Aceptar",
+                                    handler: function (blah) {
+                                        _this.servicioInvitados.updateEstoAcceso(idInvitado, false, localStorage.getItem("idResidente"));
+                                        _this.servicioInvitados.updateEstosInvitado(idInvitado, false, localStorage.getItem("idResidente"));
+                                    }
+                                }, {
+                                    text: "Cancelar",
+                                    handler: function (blah) {
+                                    }
+                                }]
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ListaInvitadosGuardiaPage.prototype.alertPermitirAcceso = function (idInvitado) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alert.create({
+                            header: 'Invitado nuevo va a ingresar',
+                            subHeader: '¿Seguro qué deseas realizar esta acción?',
+                            //message: 'Estás por ingresar al club',
+                            buttons: [{
+                                    text: "Aceptar",
+                                    handler: function (blah) {
+                                        _this.servicioInvitados.updateEstoAcceso(idInvitado, true, localStorage.getItem("idResidente"));
+                                        _this.servicioInvitados.updateEstoInvitado(idInvitado, false, localStorage.getItem("idResidente"));
+                                    }
+                                }, {
+                                    text: "Cancelar",
+                                    handler: function (blah) {
+                                    }
+                                }]
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"]),
@@ -2218,7 +2332,7 @@ var ListaInvitadosGuardiaPage = /** @class */ (function () {
             template: __webpack_require__(/*! ./lista-invitados-guardia.page.html */ "./src/app/lista-invitados-guardia/lista-invitados-guardia.page.html"),
             styles: [__webpack_require__(/*! ./lista-invitados-guardia.page.scss */ "./src/app/lista-invitados-guardia/lista-invitados-guardia.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__["AngularFirestore"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"], _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"], _servicios_InvitadoServiceService__WEBPACK_IMPORTED_MODULE_6__["InvitadoServiceService"], _servicios_usuarios_service__WEBPACK_IMPORTED_MODULE_7__["UsuariosService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__["AngularFirestore"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"], _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__["AngularFireAuth"], _servicios_InvitadoServiceService__WEBPACK_IMPORTED_MODULE_6__["InvitadoServiceService"], _servicios_usuarios_service__WEBPACK_IMPORTED_MODULE_7__["UsuariosService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]])
     ], ListaInvitadosGuardiaPage);
     return ListaInvitadosGuardiaPage;
 }());
@@ -2260,8 +2374,7 @@ var InvitadoServiceService = /** @class */ (function () {
         }));
     };
     InvitadoServiceService.prototype.addInvitado = function (invitado) {
-        alert('el invitado se ingreso correctamente');
-        return this.dataBse.collection('invitados').add(invitado);
+        return this.dataBse.collection('invitados').doc(invitado.id).set(invitado);
     };
     InvitadoServiceService.prototype.getInvitadoByIdResidente = function (id_Residente) {
         return this.dataBse.collection('invitados', function (ref) { return ref.where('id_usuarioResidente', '==', id_Residente); }).snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (inv) {
@@ -2281,16 +2394,47 @@ var InvitadoServiceService = /** @class */ (function () {
             });
         }));
     };
+    InvitadoServiceService.prototype.getInvitadoEstadoGuardiaTrueByIdResidente = function (id_Residente) {
+        return this.dataBse.collection('invitados', function (ref) { return ref.where("id_usuarioResidente", "==", id_Residente).where("estado_guardia", "==", true); }).snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (inv) {
+            return inv.map(function (data) {
+                var invi = data.payload.doc.data();
+                invi.id = data.payload.doc.id;
+                return invi;
+            });
+        }));
+    };
     InvitadoServiceService.prototype.updateEstoInvitado = function (idInvitado, estado, idResidente) {
         return this.dataBse.collection('invitados').doc(idInvitado).update({
             invitacion_activa: estado,
             id_usuarioResidente: idResidente
         });
     };
+    InvitadoServiceService.prototype.updateEstadoGuardiaInvitado = function (idInvitado, estado, idResidente) {
+        return this.dataBse.collection('invitados').doc(idInvitado).update({
+            estado_guardia: estado,
+            id_usuarioResidente: idResidente
+        });
+    };
+    InvitadoServiceService.prototype.updateEstosInvitado = function (idInvitado, estado, idResidente) {
+        return this.dataBse.collection('invitados').doc(idInvitado).update({
+            invitacion_activa: estado,
+            estado: estado,
+            estado_guardia: estado,
+            id_usuarioResidente: idResidente
+        });
+    };
+    InvitadoServiceService.prototype.updateEstoAcceso = function (idInvitado, estado, idResidente) {
+        return this.dataBse.collection('invitados').doc(idInvitado).update({
+            estado: estado,
+            id_usuarioResidente: idResidente
+        });
+    };
     InvitadoServiceService.prototype.getInvitadoById = function (idVisitante) {
-        return this.dataBse.collection('invitados').doc(idVisitante).snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
-            var invitadoTmp = res.payload.data();
-            return invitadoTmp;
+        return this.dataBse.collection('invitados', function (ref) { return ref.where("id", "==", idVisitante); }).snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
+            return res.map(function (data) {
+                var invitadoTmp = data.payload.doc.data();
+                return invitadoTmp;
+            });
         }));
     };
     InvitadoServiceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2321,23 +2465,78 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/auth/index.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
 
 
 
 
 
 var AuthService = /** @class */ (function () {
-    function AuthService(AFauth, router, dataBase) {
+    function AuthService(AFauth, router, dataBase, alert) {
         this.AFauth = AFauth;
         this.router = router;
         this.dataBase = dataBase;
+        this.alert = alert;
     }
     AuthService.prototype.login = function (email, password) {
         var _this = this;
         return new Promise(function (resolve, reject) {
             _this.AFauth.auth.signInWithEmailAndPassword(email, password).then(function (user) {
                 resolve(user);
-            }).catch(function (err) { return reject(err); });
+            }).catch(function (err) {
+                _this.alertLoginErrorAuth(err);
+            });
+        });
+    };
+    AuthService.prototype.alertLoginErrorAuth = function (error) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alert.create({
+                            header: 'Error',
+                            subHeader: 'Ocurrio un error al inicia sesión',
+                            message: error,
+                            buttons: [{
+                                    text: "Aceptar",
+                                    handler: function (blah) {
+                                    }
+                                }]
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    AuthService.prototype.alertRegisterErrorAuth = function (error) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alert.create({
+                            header: 'Error',
+                            subHeader: 'Ocurrio un error en el registro',
+                            message: error,
+                            buttons: [{
+                                    text: "Aceptar",
+                                    handler: function (blah) {
+                                    }
+                                }]
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
         });
     };
     AuthService.prototype.logOut = function () {
@@ -2392,7 +2591,9 @@ var AuthService = /** @class */ (function () {
                     });
                 });
                 resolve(res);
-            }).catch(function (err) { return reject(err); });
+            }).catch(function (err) {
+                _this.alertRegisterErrorAuth(err);
+            });
             //}
             //romperusuario = true;
         });
@@ -2402,7 +2603,7 @@ var AuthService = /** @class */ (function () {
             providedIn: 'root'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__["AngularFireAuth"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__["AngularFirestore"]])
+            _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__["AngularFirestore"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"]])
     ], AuthService);
     return AuthService;
 }());
@@ -2466,6 +2667,53 @@ var ChatsService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/servicios/direcciones/direcciones.service.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/servicios/direcciones/direcciones.service.ts ***!
+  \**************************************************************/
+/*! exports provided: DireccionesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DireccionesService", function() { return DireccionesService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
+
+
+var DireccionesService = /** @class */ (function () {
+    function DireccionesService(dataBase) {
+        this.dataBase = dataBase;
+    }
+    DireccionesService.prototype.getDireccionByIdResidente = function (idResidente) {
+        return this.dataBase.collection('directions', function (ref) { return (ref.where("id_usuario", "==", idResidente)); }).snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (ref) {
+            return ref.map(function (direcion) {
+                var direccion = direcion.payload.doc.data();
+                direccion.id = direcion.payload.doc.id;
+                return direccion;
+            });
+        }));
+    };
+    DireccionesService.prototype.updateDireccionDeUnUsuario = function (idDireccion, direccion) {
+        return this.dataBase.collection('directions').doc(idDireccion).update(direccion);
+    };
+    DireccionesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"]])
+    ], DireccionesService);
+    return DireccionesService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/servicios/usuarios.service.ts":
 /*!***********************************************!*\
   !*** ./src/app/servicios/usuarios.service.ts ***!
@@ -2505,17 +2753,18 @@ var UsuariosService = /** @class */ (function () {
         }));
     };
     UsuariosService.prototype.getuserInvitadoByUsername = function (username) {
-        return this.dataBase.collection('users', function (ref) { return ref.where("username", "==", username); }).snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
+        return this.dataBase.collection('users', function (ref) { return ref.where("username", "==", username).where("rol", "==", "visitante"); }).snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
             return res.map(function (data) {
                 var userTmp = data.payload.doc.data();
-                if (userTmp.rol == "visitante") {
-                    return userTmp;
-                }
-                else {
-                    return {
-                        mensaje: "Elusuario ingresado no es visitante"
-                    };
-                }
+                return userTmp;
+            });
+        }));
+    };
+    UsuariosService.prototype.getUserById = function (id) {
+        return this.dataBase.collection('users', function (ref) { return ref.where("uid", "==", id); }).snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
+            return res.map(function (data) {
+                var userTmp = data.payload.doc.data();
+                return userTmp;
             });
         }));
     };

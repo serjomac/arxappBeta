@@ -29,17 +29,22 @@ export class UsuariosService {
   }
 
   getuserInvitadoByUsername(username: string){
-    return this.dataBase.collection('users', ref => ref.where("username", "==", username)).snapshotChanges().pipe(map(res => {
+    return this.dataBase.collection('users', ref => ref.where("username", "==", username).where("rol", "==", "visitante")).snapshotChanges().pipe(map(res => {
       return res.map(data => {
         const userTmp = data.payload.doc.data() as Usuario;
-        if(userTmp.rol == "visitante"){
-          return userTmp;
-        }else{
-          return {
-            mensaje: "Elusuario ingresado no es visitante"
-          }
-        }
         
+          return userTmp;
+        
+        
+      })
+    }))
+  }
+
+  getUserById(id: string){
+    return this.dataBase.collection('users', ref => ref.where("uid", "==", id)).snapshotChanges().pipe(map(res => {
+      return res.map(data => {
+        const userTmp = data.payload.doc.data() as Usuario;
+        return userTmp;
       })
     }))
   }

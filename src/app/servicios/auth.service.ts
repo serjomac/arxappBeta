@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth'
 import { from } from 'rxjs';
 import{ Router } from '@angular/router'
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +11,49 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class AuthService {
   
   constructor(private AFauth: AngularFireAuth, private router: Router,
-              private dataBase: AngularFirestore ) { }
+              private dataBase: AngularFirestore, private alert: AlertController ) { }
     login(email: string, password: string){
       
       return new Promise((resolve, reject) =>{
         this.AFauth.auth.signInWithEmailAndPassword(email, password).then(user => {
           resolve(user);
-        }).catch(err=>reject(err));
+        }).catch(err=>{
+          this.alertLoginErrorAuth(err)
+        });
       });
       
     
 
+  }
+
+  async alertLoginErrorAuth(error: string) {
+    const alert = await this.alert.create({
+      header: 'Error',
+      subHeader: 'Ocurrio un error al inicia sesión',
+      message: error,
+      buttons: [{
+        text: "Aceptar",
+        handler: (blah) => {
+        }
+      }]
+    });
+
+    await alert.present();
+  }
+
+  async alertRegisterErrorAuth(error: string) {
+    const alert = await this.alert.create({
+      header: 'Error',
+      subHeader: 'Ocurrio un error en el registro',
+      message: error,
+      buttons: [{
+        text: "Aceptar",
+        handler: (blah) => {
+        }
+      }]
+    });
+
+    await alert.present();
   }
 
   logOut(){
@@ -89,7 +122,9 @@ export class AuthService {
           })
           
           resolve(res)
-        }).catch(err => reject(err));
+        }).catch(err => {
+          this.alertRegisterErrorAuth(err)
+        });
 
 
       //}

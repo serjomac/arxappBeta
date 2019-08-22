@@ -1,5 +1,5 @@
 .mapa-urbanizacion{
-    background-image: url("../../assets/images/mapa.png");
+    background-image: url("../../assets/images/mapaIlustrado.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -9,28 +9,28 @@
 
 .club{
     position: absolute;
-    height: 3rem;
-    width: 3rem;
-    background-color: #ffffff;
-    margin: 5rem 0 0 3rem;
+    width: 17vw;
+    height: 17vw;
+    
+    margin: 5rem 0 0 5rem;
     cursor: pointer;
 }
 
 .Parque{
     position: absolute;
-    height: 3rem;
-    width: 3rem;
-    background-color: #d6f818;
+    width: 17vw;
+    height: 17vw;
     margin: 12rem 0 0 16rem;
     cursor: pointer;
 }
 
 .Complejo{
     position: absolute;
-    height: 3rem;
-    width: 3rem;
-    background-color: #07119c;
-    margin: 23rem 0 0 10rem;
+    width: 17vw;
+    height: 17vw;
+    
+    
+    margin: 21em 0 0 6rem;
     cursor: pointer;
 }
 

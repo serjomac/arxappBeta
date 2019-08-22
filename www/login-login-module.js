@@ -100,6 +100,7 @@ var LoginPage = /** @class */ (function () {
         this.db = db;
     }
     LoginPage.prototype.ngOnInit = function () {
+        localStorage.setItem("currentUser", "");
     };
     LoginPage.prototype.onSubmitLogin = function () {
         var _this = this;
@@ -108,7 +109,8 @@ var LoginPage = /** @class */ (function () {
             _this.usuarioEnSesion = _this.db.collection('users').doc(res['user'].uid).valueChanges();
             //console.log(this.usuarioEnSesion)
             _this.usuarioEnSesion.forEach(function (data) {
-                //console.log(data)
+                console.log("======>>", data);
+                localStorage.setItem("currentUser", JSON.stringify(data));
                 console.log(data['rol']);
                 if (data['rol'] == "residente") {
                     _this.router.navigate(['tabs/home']);

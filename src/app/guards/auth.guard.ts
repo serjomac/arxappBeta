@@ -7,13 +7,14 @@ import { map } from 'rxjs/operators'
 import { isNullOrUndefined } from 'util';
 import { Router } from '@angular/router'
 import { AngularFirestore } from '@angular/fire/firestore';
+import { UsuariosService } from '../servicios/usuarios.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements  CanActivate{
   public userTmp: any;
   public estado: boolean = true;
-  constructor  (private AFauth: AngularFireAuth, private router: Router, private datBase: AngularFirestore){
+  constructor  (private AFauth: AngularFireAuth, private router: Router, private datBase: AngularFirestore, private usuarioServicio: UsuariosService){
 
   }
 
@@ -27,8 +28,15 @@ export class AuthGuard implements  CanActivate{
         
           return false;
         }else{
+          let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+          console.log("el current! ", currentUser["rol"]);
+          if(currentUser["rol"] == "residente"){
+            return true;
+          }else{
+            this.router.navigate(['/login'])
+            return false;
+          }
           
-          return true;
         }
       }))
       
