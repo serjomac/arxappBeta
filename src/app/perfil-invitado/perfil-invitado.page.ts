@@ -37,7 +37,7 @@ export class PerfilInvitadoPage implements OnInit {
   }
  
   redirectIngresarCiudadela(){
-    this.router.navigate(["/perfil-ingresarurbanizacion"])
+    this.router.navigate(["/perfil-ingresarurbanizacion"]);
   }
   
   async presentActionSheet() {

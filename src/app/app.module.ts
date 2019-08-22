@@ -26,6 +26,8 @@ import { ListaInvitadosGuardiaPage } from './lista-invitados-guardia/lista-invit
 import { PerfilInvitadoPage } from './perfil-invitado/perfil-invitado.page';
 import { AuthIngresarCiudadelaComponent } from './componets/auth-ingresar-ciudadela/auth-ingresar-ciudadela.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { MapaVisitantePage } from './mapa-visitante/mapa-visitante.page';
+
 
 const config: SocketIoConfig = { url: 'https://arxappws.herokuapp.com', options: {} };
 
@@ -38,7 +40,6 @@ const config: SocketIoConfig = { url: 'https://arxappws.herokuapp.com', options:
     ListaGuardiaPage,
     ListaInvitadosGuardiaPage,
     AuthIngresarCiudadelaComponent
-    
     
   ],
   entryComponents: [

@@ -1,0 +1,47 @@
+
+<ion-header>
+    <ion-toolbar color="primary">
+       
+      <div class="plusClass" slot="end">
+        <ion-icon name="menu" expand="icon-only" color="light" (click)="presentActionSheet()"> </ion-icon>
+      </div>
+       
+      <ion-title ([ngModel])="name" color="light">Urbanización Vicrieel</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  
+  <div class="mapa-urbanizacion">
+
+    <div class="club"><button (click)="ingresarClub()" class="ingresarAreas"></button></div>
+    <div class="Parque"><button (click)="ingresarParque()" class="ingresarAreas"></button></div>
+    <div class="Complejo"><button (click)="ingresarComplejo()" class="ingresarAreas"></button></div>
+
+    <!-- QR Club -->
+    <div id="mostrarQRClub" *ngIf= "estadoQRClub == true">
+        <br>
+      <h1>QR Club</h1>
+      <br>
+      <img src="../../assets/images/chatIcon.png" alt="Codigo QR">
+    </div>
+
+    <!-- QR Complejo -->
+    <div id="mostrarQRComplejo" *ngIf= "estadoQRComplejo == true">
+        <br>
+      <h1>QR Complejo</h1>
+      <br>
+      <img src="../../assets/images/chatIcon.png" alt="Codigo QR">
+    </div>
+
+      <!-- QR Parque -->
+    <div id="mostrarQRParque" *ngIf= "estadoQRParque == true">
+        <br>
+      <h1>QR Parque</h1>
+      <br>
+      <img src="../../assets/images/chatIcon.png" alt="Codigo QR">
+    </div>
+
+  </div>
+
+</ion-content>
