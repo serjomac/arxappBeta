@@ -1366,15 +1366,18 @@ var AddInvitadoComponent = /** @class */ (function () {
                     }
                 }
                 if (existeInvitado) {
-                    console.log("el invistado ya esta en lista");
+                    //console.log("el invistado ya esta en lista");
                     _this.presentAlert3();
                     lecturaDeInvitados_1.unsubscribe();
                 }
                 else if (existeinvitadoPeroNoEstaEnLista) {
-                    console.log("se va a actualizar el estado del invitado: ", invitadoTmp);
-                    _this.servicioInvitado.updateEstoInvitado(_this.auth.auth.currentUser.uid, true, _this.auth.auth.currentUser.uid);
+                    //console.log("se va a actualizar el estado del invitado: ", invitadoTmp);
+                    _this.servicioInvitado.updateEstoInvitado(invitadoTmp.id, true, _this.auth.auth.currentUser.uid);
                     _this.servicioInvitado.updateEstadoGuardiaInvitado(invitadoTmp.id, true, _this.auth.auth.currentUser.uid);
+                    //console.log("=====>", invitadoTmp.numeroVisitas + 1)
+                    _this.servicioInvitado.updateContadorInvitadoById(invitadoTmp.id, invitadoTmp.numeroVisitas + 1);
                     _this.visitanteIngresado = "";
+                    _this.alterAgregoCorrecto();
                     lecturaDeInvitados_1.unsubscribe();
                 }
                 else {
@@ -2437,6 +2440,11 @@ var InvitadoServiceService = /** @class */ (function () {
             });
         }));
     };
+    InvitadoServiceService.prototype.updateContadorInvitadoById = function (idVisitante, visitas) {
+        return this.dataBse.collection('invitados').doc(idVisitante).update({
+            numeroVisitas: visitas,
+        });
+    };
     InvitadoServiceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
@@ -2548,24 +2556,6 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.register = function (email, password, name, rol, username) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            /*
-            var usuarios = this.dataBase.collection("users").valueChanges();
-            usuarios.forEach(user => {
-              debugger
-              for (let i = 0; i < user.length; i++) {
-                console.log(user[i]['username'])
-                if(user[i]['username'] == username){
-      
-                usuarioExiste = true;
-                break;
-                }else{
-                  usuarioExiste = false
-                }
-              }
-      
-              
-            });
-            */
             _this.AFauth.auth.createUserWithEmailAndPassword(email, password).then(function (res) {
                 localStorage.setItem('userUid', res.user.uid);
                 _this.dataBase.collection('directions').add({

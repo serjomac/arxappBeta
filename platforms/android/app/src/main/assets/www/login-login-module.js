@@ -100,7 +100,6 @@ var LoginPage = /** @class */ (function () {
         this.db = db;
     }
     LoginPage.prototype.ngOnInit = function () {
-        localStorage.setItem("currentUser", "");
     };
     LoginPage.prototype.onSubmitLogin = function () {
         var _this = this;

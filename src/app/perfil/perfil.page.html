@@ -32,23 +32,22 @@
 <ion-list >
 <ion-item >
 
-
     <label for="">Manzana: </label>
-    <ion-input  [(ngModel)] = "manzana"  type="text" #name="ngModel"></ion-input>
+    <ion-input [(ngModel)] = "manzana"  type="text" name="manzana"></ion-input>
   
 </ion-item>
 
 <ion-item>
 
   <label for="">Villa: </label>
-  <ion-input [(ngModel)] = "villa"  type="text"  #name="ngModel" ></ion-input>
+  <ion-input [(ngModel)] = "villa"  type="text"  name="villa" ></ion-input>
 
 </ion-item>
 
 <ion-item>
 
   <label for="">Referencia: </label>
-  <ion-input [(ngModel)] = "referencia" type="text"  #name="ngModel" ></ion-input>
+  <ion-input [(ngModel)] = "referencia" type="text" value="{{referencia}}" name="referencia" ></ion-input>
 
 </ion-item>
 </ion-list>

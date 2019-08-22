@@ -133,7 +133,6 @@ var RegisterPage = /** @class */ (function () {
         console.log(this.seleccion);
     };
     RegisterPage.prototype.onSubmitRegister = function () {
-        //debugger
         var _this = this;
         if (this.email != "" && this.password != "" && this.rolSeleccionado != "" && this.username != "") {
             console.log(this.usurioExiste);

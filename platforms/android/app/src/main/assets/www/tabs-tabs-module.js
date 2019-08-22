@@ -43,15 +43,7 @@ var AuthGuard = /** @class */ (function () {
                 return false;
             }
             else {
-                var currentUser = JSON.parse(localStorage.getItem("currentUser"));
-                console.log("el current! ", currentUser["rol"]);
-                if (currentUser["rol"] == "residente") {
-                    return true;
-                }
-                else {
-                    _this.router.navigate(['/login']);
-                    return false;
-                }
+                return true;
             }
         }));
     };

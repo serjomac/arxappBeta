@@ -21,13 +21,13 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
 
     this.servicioDirecciones.getDireccionByIdResidente(this.auth.auth.currentUser.uid).subscribe(res => {
-      console.log(res[0])
+      
       this.direccionDelUsuario = res[0];
-      this.arryDir = res;
-      this.manzana = this.direccionDelUsuario[0].manzana;
-      this.villa = this.direccionDelUsuario[0].villa;
-      this.referenncia = this.direccionDelUsuario[0].referencia;
-      console.log("dsadsadasd", this.arryDir[0])
+      console.log(this.direccionDelUsuario)
+      this.manzana = this.direccionDelUsuario.manzana;
+      this.villa = this.direccionDelUsuario.villa;
+      this.referenncia = this.direccionDelUsuario.referencia;
+    
     })
 
   }
@@ -41,7 +41,7 @@ export class PerfilPage implements OnInit {
       referencia : this.referenncia
     }
 
-    this.servicioDirecciones.updateDireccionDeUnUsuario(this.arryDir[0].id, direccionNueva);
+    this.servicioDirecciones.updateDireccionDeUnUsuario(this.direccionDelUsuario.id, direccionNueva);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 
-import { ModalController, AlertController, NavParams } from '@ionic/angular';
+import { ModalController, AlertController, NavParams, LoadingController } from '@ionic/angular';
 import { AuthIngresarCiudadelaComponent } from '../componets/auth-ingresar-ciudadela/auth-ingresar-ciudadela.component';
 
 
@@ -16,7 +16,7 @@ export class MapaVisitantePage implements OnInit {
   public estadoQRComplejo: boolean = false;
   public estadoQRParque: boolean = false;
 
-  constructor(private modal: ModalController, private alert: AlertController) { 
+  constructor(private modal: ModalController, private alert: AlertController, private loading: LoadingController) { 
     
 
   }
@@ -25,6 +25,48 @@ export class MapaVisitantePage implements OnInit {
     console.log('ingreso por ingresarClub()');
     this.generarQRClub();
 
+  }
+
+
+
+
+  async presentLoading() {
+    const loading = await this.loading.create({
+      message: 'Cargando...',
+      duration: 1800
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+
+    console.log('Loading dismissed!');
+    this.mostrarElQRGeneradoClub();
+  }
+
+  async presentLoading2() {
+    const loading = await this.loading.create({
+      message: 'Cargando...',
+      duration: 1800
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+
+    console.log('Loading dismissed!');
+    this.mostrarElQRGeneradoComplejo();
+  }
+
+  async presentLoading3() {
+    const loading = await this.loading.create({
+      message: 'Cargando...',
+      duration: 1800
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+
+    console.log('Loading dismissed!');
+    this.mostrarElQRGeneradoParque();
   }
 
   ingresarParque(){
@@ -73,7 +115,7 @@ export class MapaVisitantePage implements OnInit {
       buttons: [{
         text: "Aceptar",
         handler: (blah) => {
-          this.mostrarElQRGeneradoClub();
+          this.presentLoading();
         }
       },{
         text: "Cancelar",
@@ -94,8 +136,7 @@ export class MapaVisitantePage implements OnInit {
       buttons: [{
         text: "Aceptar",
         handler: (blah) => {
-          this.mostrarElQRGeneradoParque();
-        }
+          this.presentLoading3();        }
       },{
         text: "Cancelar",
         handler: (blah) => {
@@ -115,7 +156,7 @@ export class MapaVisitantePage implements OnInit {
       buttons: [{
         text: "Aceptar",
         handler: (blah) => {
-          this.mostrarElQRGeneradoComplejo();
+          this.presentLoading2();
         }
       },{
         text: "Cancelar",

@@ -122,7 +122,7 @@ var PerfilInvitadoPage = /** @class */ (function () {
         this.estadoInvitado = false;
         localStorage.setItem('objUsuarioEnSession', JSON.stringify(""));
         this.name = autFb.auth.currentUser.displayName;
-        this.idInvitado = autFb.auth.currentUser.uid;
+        this.idUsuarioRolInvitado = autFb.auth.currentUser.uid;
         //debugger
         this.getVisitante();
         this.getUsuario();
@@ -130,7 +130,12 @@ var PerfilInvitadoPage = /** @class */ (function () {
     }
     PerfilInvitadoPage.prototype.redirectIngresarCiudadela = function () {
         if (this.estadoInvitado) {
+            //this.numVisitas ++;
+            console.log("Numero de visitas es: ", this.numVisitas);
+            //console.log(this.idInvitado)
             this.router.navigate(["/mapa-visitante"]);
+            //this.numVisitas ++;
+            //this.invitadoService.updateContadorInvitadoById(this.idInvitado, this.numVisitas );
         }
         else {
             this.presentNoAcceso();
@@ -196,7 +201,7 @@ var PerfilInvitadoPage = /** @class */ (function () {
             usuario.forEach(function (campoUsuario) {
                 //console.log(campoInvitado['id_usuarioVisitante'])
                 //debugger
-                if (campoUsuario['uid'] == _this.idInvitado && campoUsuario['rol'] == "residente") {
+                if (campoUsuario['uid'] == _this.idUsuarioRolInvitado && campoUsuario['rol'] == "residente") {
                     var objUsuario = campoUsuario;
                     localStorage.setItem('objUsuarioEnSession', JSON.stringify(objUsuario));
                     return;
@@ -212,8 +217,8 @@ var PerfilInvitadoPage = /** @class */ (function () {
             invitado.forEach(function (campoInvitado) {
                 //console.log(campoInvitado['id_usuarioVisitante'])
                 //debugger
-                if (campoInvitado['uid'] == _this.idInvitado) {
-                    _this.idInvitado = campoInvitado['id_usuarioResidente'];
+                if (campoInvitado['uid'] == _this.idUsuarioRolInvitado) {
+                    _this.idUsuarioRolInvitado = campoInvitado['id_usuarioResidente'];
                     var objInvitado = campoInvitado;
                     localStorage.setItem('objInvitadoEnSession', JSON.stringify(objInvitado));
                     contador++;
@@ -226,15 +231,16 @@ var PerfilInvitadoPage = /** @class */ (function () {
     };
     PerfilInvitadoPage.prototype.ngOnInit = function () {
         var _this = this;
-        this.usuarios.getUsersRolInvitado(this.idInvitado).subscribe(function (res) {
+        this.usuarios.getUsersRolInvitado(this.idUsuarioRolInvitado).subscribe(function (res) {
             var invitadoTmp = res[0];
-            console.log(invitadoTmp.uid);
+            //console.log(invitadoTmp.uid)
             _this.invitadoService.getInvitadoById(invitadoTmp["uid"]).subscribe(function (invitado) {
                 if (invitado.length > 0) {
-                    console.log(invitado.length);
+                    //console.log(invitado.length)
                     _this.invitacion_activa = invitado[0].invitacion_activa;
                     _this.numVisitas = invitado[0].numeroVisitas;
                     _this.estadoInvitado = invitado[0].estado;
+                    _this.idInvitado = invitado[0].id;
                 }
             });
         });
