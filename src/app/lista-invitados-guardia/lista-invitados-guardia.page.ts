@@ -83,7 +83,7 @@ export class ListaInvitadosGuardiaPage implements OnInit {
         text: "Aceptar",
         handler: (blah) => {
           this.servicioInvitados.updateEstoAcceso(idInvitado, false, localStorage.getItem("idResidente"));
-          this.servicioInvitados.updateEstosInvitado(idInvitado,false, localStorage.getItem("idResidente"))
+          this.servicioInvitados.updateEstosInvitado(idInvitado,false, localStorage.getItem("idResidente"));
         }
       },{
         text: "Cancelar",

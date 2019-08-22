@@ -66,33 +66,6 @@ export class AuthService {
     
     return new Promise((resolve, reject) => {
       
-      /*
-      var usuarios = this.dataBase.collection("users").valueChanges();
-      usuarios.forEach(user => {
-        debugger
-        for (let i = 0; i < user.length; i++) {
-          console.log(user[i]['username'])
-          if(user[i]['username'] == username){
-
-          usuarioExiste = true;
-          break;
-          }else{
-            usuarioExiste = false
-          }
-        }
-
-        
-      });
-      */
-      
-      
-      
-      
-
-      
-      
-
-
       
         this.AFauth.auth.createUserWithEmailAndPassword(email, password).then(res=>{
 

@@ -107,4 +107,10 @@ export class InvitadoServiceService {
      
     }))
   }
+
+  updateContadorInvitadoById(idVisitante: string, visitas: number){
+    return this.dataBse.collection('invitados').doc(idVisitante).update({
+      numeroVisitas: visitas,
+    })
+  }
 }

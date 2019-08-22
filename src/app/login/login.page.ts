@@ -18,7 +18,6 @@ export class LoginPage implements OnInit {
   constructor(private auth: AuthService, public router: Router, private db: AngularFirestore) { }
 
   ngOnInit() {
-    localStorage.setItem("currentUser","");
   }
   
   onSubmitLogin(){

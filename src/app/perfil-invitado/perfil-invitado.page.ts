@@ -24,16 +24,17 @@ import { InvitadoServiceService } from '../servicios/InvitadoServiceService';
 export class PerfilInvitadoPage implements OnInit {
   public mostrarNotificacion: boolean = false; 
   public name: string;
-  public idInvitado: string;
+  public idUsuarioRolInvitado: string;
   public numVisitas: number = 0;
   public notificaiones = [];
+  public idInvitado: string;
   public invitacion_activa: boolean = false;
   public estadoInvitado: boolean = false;
   constructor(private router: Router, private actionSheetController: ActionSheetController, private auth: AuthService, private autFb: AngularFireAuth, private dataBase: AngularFirestore, public socketIO: Socket, public ngZone: NgZone, private usuarios: UsuariosService, private invitadoService: InvitadoServiceService, private alert: AlertController) {
     
     localStorage.setItem('objUsuarioEnSession', JSON.stringify(""));
     this.name = autFb.auth.currentUser.displayName;
-    this.idInvitado = autFb.auth.currentUser.uid;
+    this.idUsuarioRolInvitado = autFb.auth.currentUser.uid;
     //debugger
     this.getVisitante();
     this.getUsuario();
@@ -41,8 +42,16 @@ export class PerfilInvitadoPage implements OnInit {
   }
  
   redirectIngresarCiudadela(){
+    
+    
+    
     if(this.estadoInvitado ){
+      //this.numVisitas ++;
+      console.log("Numero de visitas es: ", this.numVisitas)
+      //console.log(this.idInvitado)
       this.router.navigate(["/mapa-visitante"]);
+      //this.numVisitas ++;
+      //this.invitadoService.updateContadorInvitadoById(this.idInvitado, this.numVisitas );
     }else{
       this.presentNoAcceso();
     }
@@ -87,7 +96,7 @@ export class PerfilInvitadoPage implements OnInit {
       usuario.forEach(campoUsuario => {
         //console.log(campoInvitado['id_usuarioVisitante'])
         //debugger
-        if(campoUsuario['uid'] == this.idInvitado && campoUsuario['rol'] == "residente"){
+        if(campoUsuario['uid'] == this.idUsuarioRolInvitado && campoUsuario['rol'] == "residente"){
           
           let objUsuario = campoUsuario as Usuario;
           localStorage.setItem('objUsuarioEnSession', JSON.stringify(objUsuario));
@@ -105,8 +114,8 @@ export class PerfilInvitadoPage implements OnInit {
       invitado.forEach(campoInvitado => {
         //console.log(campoInvitado['id_usuarioVisitante'])
         //debugger
-        if(campoInvitado['uid'] == this.idInvitado){
-          this.idInvitado = campoInvitado['id_usuarioResidente'];
+        if(campoInvitado['uid'] == this.idUsuarioRolInvitado){
+          this.idUsuarioRolInvitado = campoInvitado['id_usuarioResidente'];
           let objInvitado = campoInvitado as Invitado;
           localStorage.setItem('objInvitadoEnSession', JSON.stringify(objInvitado));
           contador ++;
@@ -120,16 +129,17 @@ export class PerfilInvitadoPage implements OnInit {
 
   ngOnInit() {
 
-    this.usuarios.getUsersRolInvitado(this.idInvitado).subscribe(res=> {
+    this.usuarios.getUsersRolInvitado(this.idUsuarioRolInvitado).subscribe(res=> {
       
         let invitadoTmp: Usuario = res[0];
-        console.log(invitadoTmp.uid)
+        //console.log(invitadoTmp.uid)
         this.invitadoService.getInvitadoById(invitadoTmp["uid"]).subscribe(invitado => {
           if(invitado.length>0){
-          console.log(invitado.length)
+          //console.log(invitado.length)
           this.invitacion_activa = invitado[0].invitacion_activa;
           this.numVisitas = invitado[0].numeroVisitas;
           this.estadoInvitado = invitado[0].estado;
+          this.idInvitado = invitado[0].id;
         }
         })
 

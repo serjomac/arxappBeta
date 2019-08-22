@@ -27,10 +27,6 @@ export class RegisterPage implements OnInit {
   onSubmitRegister(){
     
     
-      //debugger
-    
-       
-       
       if(this.email != "" && this.password != "" && this.rolSeleccionado != "" && this.username != ""){
        
         console.log(this.usurioExiste)

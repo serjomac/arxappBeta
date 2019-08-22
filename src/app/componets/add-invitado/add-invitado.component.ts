@@ -192,14 +192,18 @@ export class AddInvitadoComponent implements OnInit {
     }
 
     if(existeInvitado){
-      console.log("el invistado ya esta en lista");
+      //console.log("el invistado ya esta en lista");
       this.presentAlert3()
       lecturaDeInvitados.unsubscribe();
     }else if(existeinvitadoPeroNoEstaEnLista){
-      console.log("se va a actualizar el estado del invitado: ", invitadoTmp);
-      this.servicioInvitado.updateEstoInvitado(this.auth.auth.currentUser.uid, true, this.auth.auth.currentUser.uid);
+      //console.log("se va a actualizar el estado del invitado: ", invitadoTmp);
+      this.servicioInvitado.updateEstoInvitado(invitadoTmp.id, true, this.auth.auth.currentUser.uid);
       this.servicioInvitado.updateEstadoGuardiaInvitado(invitadoTmp.id, true, this.auth.auth.currentUser.uid);
+      
+      //console.log("=====>", invitadoTmp.numeroVisitas + 1)
+      this.servicioInvitado.updateContadorInvitadoById(invitadoTmp.id,invitadoTmp.numeroVisitas + 1);
       this.visitanteIngresado = "";
+      this.alterAgregoCorrecto();
       lecturaDeInvitados.unsubscribe();
     }else{
       
